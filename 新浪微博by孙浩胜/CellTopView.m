@@ -17,7 +17,7 @@
 
 @interface CellTopView ()
 
-@property (nonatomic,weak) CellRetweetView *retweetView;
+
 
 /**头像*/
 @property (nonatomic,weak) UIImageView *headPhotoView;

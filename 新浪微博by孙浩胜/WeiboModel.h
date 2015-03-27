@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class UserModel;
+@class LocationModel;
 
 @interface WeiboModel : NSObject
 

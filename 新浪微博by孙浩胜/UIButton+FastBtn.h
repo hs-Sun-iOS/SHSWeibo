@@ -15,7 +15,7 @@
 
 
 + (UIButton *)buttonWithTitle:(NSString *)title NormalTitleColor:(UIColor *)NormalColor HighlightTitleColor:(UIColor *)highlightColor target:(id)target action:(SEL)selector isEnable:(BOOL)isEnable;
-
++ (UIButton *)buttonWithTitle:(NSString *)title NormalTitleColor:(UIColor *)NormalColor SelectedTitleColor:(UIColor *)selectedColor target:(id)target action:(SEL)selector;
 
 + (UIButton *)buttonWithImageName:(NSString *)imageName SelectedImageName:(NSString *)selectedName target:(id)target action:(SEL)selector;
 

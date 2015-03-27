@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface SendTextView : UITextView <UITextViewDelegate>
 
 + (instancetype)SendTextView;

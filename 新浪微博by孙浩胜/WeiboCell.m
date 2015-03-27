@@ -16,7 +16,6 @@
 #import "CellTopView.h"
 
 @interface WeiboCell ()
-@property (nonatomic,weak) CellTopView *cellTopView ;
 
 @end
 
@@ -42,7 +41,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self addAllView];
-
     }
     return self;
 }

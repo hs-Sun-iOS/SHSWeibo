@@ -9,7 +9,22 @@
 #import <UIKit/UIKit.h>
 
 @class CellModel;
+@class CellToolBar;
+
+
+typedef enum : NSUInteger {
+    CellToolBarRetweetButton,
+    CellToolBarCommentButton,
+    CellToolBarAttitudeButton,
+} CellToolBarButtonType;
+
+@protocol CellToolBarDelegate <NSObject>
+
+- (void)CellToolBar:(CellToolBar *)toolBar WithButtonType:(CellToolBarButtonType)buttonType;
+
+@end
 @interface CellToolBar : UIImageView
+
 
 /**转发按钮*/
 @property (nonatomic,weak) UIButton *retweetBtn;
@@ -19,5 +34,7 @@
 @property (nonatomic,weak) UIButton *attitudeBtn;
 
 @property (nonatomic,strong) CellModel *cellModel;
+
+@property (nonatomic,assign) id<CellToolBarDelegate> delegate;
 
 @end

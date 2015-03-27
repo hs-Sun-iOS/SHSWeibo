@@ -55,6 +55,13 @@
     return @{@"pic_urls":[PhotoModel class]};
 }
 
+
+- (int)comments_count
+{
+   // NSLog(@" weibomodel   %@ , comment %d  retweet %d  zan %d",_text,_comments_count,_reposts_count,_attitudes_count);
+    return _comments_count;
+}
+
 - (void)setSource:(NSString *)source
 {
     int loc = [source rangeOfString:@">"].location + 1;
@@ -93,7 +100,7 @@
     }
     else if ([creatDate isThisYear])
     {
-        df.dateFormat = @"MM dd HH:mm";
+        df.dateFormat = @"MM-dd HH:mm";
         return [df stringFromDate:creatDate];
     }
     else

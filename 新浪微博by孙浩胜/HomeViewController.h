@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class UserModel;
+
 @interface HomeViewController : UITableViewController
 @property (nonatomic,strong) UserModel *userModel;
 

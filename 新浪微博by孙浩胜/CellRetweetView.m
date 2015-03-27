@@ -13,6 +13,7 @@
 #import "UIImage+AutoStretch.h"
 #import "UIImageView+WebCache.h"
 #import "PhotosView.h"
+#import "HomeViewController.h"
 
 @interface CellRetweetView ()
 
@@ -35,6 +36,8 @@
     if (self) {
         
         self.userInteractionEnabled = YES;
+        
+        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapEvent:)]];
         self.image = [UIImage autoStretchWithimageName:@"timeline_retweet_background_os7" Left:0.9 top:0.5];
         
         
@@ -85,10 +88,12 @@
         self.retweet_pictureView.frame = cellModel.retweet_pictureViewFrame;
         self.retweet_pictureView.photos = cellModel.weiboModel.retweeted_status.pic_urls;
     } else
-    {
         self.retweet_pictureView.hidden = YES;
-    }
+}
 
+- (void)tapEvent:(UITapGestureRecognizer *)tapGR
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pushOriginal" object:nil userInfo:@{@"weiboModel":self.cellModel.weiboModel.retweeted_status}];
 }
 
 @end

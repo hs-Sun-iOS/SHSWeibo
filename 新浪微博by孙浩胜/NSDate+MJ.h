@@ -9,14 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSDate (MJ)
-/**
- *  是否为今天
- */
-- (BOOL)isToday;
-/**
- *  是否为昨天
- */
-- (BOOL)isYesterday;
+
 /**
  *  是否为今年
  */

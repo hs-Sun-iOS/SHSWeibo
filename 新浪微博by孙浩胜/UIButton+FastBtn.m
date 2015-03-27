@@ -58,4 +58,15 @@
     btn.frame = CGRectMake(0, 0, btn.currentImage.size.width, btn.currentImage.size.height);
     return btn;
 }
+
++ (UIButton *)buttonWithTitle:(NSString *)title NormalTitleColor:(UIColor *)NormalColor SelectedTitleColor:(UIColor *)selectedColor target:(id)target action:(SEL)selector
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn setTitleColor:NormalColor forState:UIControlStateNormal];
+    [btn setTitleColor:selectedColor forState:UIControlStateSelected];
+    btn.titleLabel.font = [UIFont boldSystemFontOfSize:13.0f];
+    [btn addTarget:target action:selector forControlEvents:UIControlEventTouchDown];
+    return btn;
+}
 @end

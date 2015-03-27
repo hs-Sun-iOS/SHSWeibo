@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class HomeViewController;
+typedef void (^pushVCBlock)(HomeViewController *);
+
 @class CellModel;
 @interface CellRetweetView : UIImageView
 
 @property (nonatomic,strong) CellModel *cellModel;
+
+@property (nonatomic,assign) pushVCBlock pushOriginalWeiboInfo;
+
 
 @end

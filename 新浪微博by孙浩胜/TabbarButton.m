@@ -43,7 +43,7 @@
     btn.badgeValueBtn = [[BadgeValueButton alloc] initWithBadgeView:item.badgeValue];
     
     [btn addSubview:btn.badgeValueBtn];
-    [_item addObserver:btn forKeyPath:@"badgeValue" options:0 context:nil];
+    [item addObserver:btn forKeyPath:@"badgeValue" options:0 context:nil];
     
     return btn;
 }

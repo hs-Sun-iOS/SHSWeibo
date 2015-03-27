@@ -15,7 +15,7 @@
 #define SOURCE_LABEL_FONT [UIFont systemFontOfSize:11];
 #define CONTENT_LABEL_FONT [UIFont systemFontOfSize:14];
 #define RETWEET_NAME_LABEL_FONT [UIFont systemFontOfSize:13];
-#define RETWEET_CONTENT_LABEL_FONT [UIFont systemFontOfSize:14]
+#define RETWEET_CONTENT_LABEL_FONT [UIFont systemFontOfSize:14];
 
 @class WeiboModel;
 @interface CellModel : NSObject

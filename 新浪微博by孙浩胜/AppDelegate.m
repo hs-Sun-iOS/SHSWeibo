@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "NewFeatureViewController.h"
 #import "OAuthViewController.h"
+#import "SDWebImageManager.h"
 
 @interface AppDelegate ()
 
@@ -28,6 +29,12 @@
     
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    [[SDWebImageManager sharedManager] cancelAll];
+    [[SDWebImageManager sharedManager].imageCache clearMemory];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -10,8 +10,11 @@
 
 
 @class CellModel;
+@class CellRetweetView;
 @interface CellTopView : UIImageView
 
 @property (nonatomic,strong) CellModel *cellModel;
+
+@property (nonatomic,weak) CellRetweetView *retweetView;
 
 @end

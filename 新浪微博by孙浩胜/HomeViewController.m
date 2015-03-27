@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "ViewController.h"
 #import "UIButton+FastBtn.h"
 #import "TitleButton.h"
 #import "ClassifyTableView.h"
@@ -20,6 +21,12 @@
 #import "MJExtension.h"
 #import "PhotoModel.h"
 #import "MJRefresh.h"
+#import "CellToolBar.h"
+#import "CellTopView.h"
+#import "CellRetweetView.h"
+#import "RetweetViewController.h"
+#import "CommentViewController.h"
+#import "WeiboInfoViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 
@@ -28,7 +35,7 @@
 #define CLIENT_ID 831372268
 #define CLIENT_SECRET 1f624b050701de067967899646bb7072
 #define UID 3192181484
-@interface HomeViewController () <ClassifyTableViewDelegate>
+@interface HomeViewController () <ClassifyTableViewDelegate,CellToolBarDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) ClassifyTableView *ctb; //下拉表格
 
@@ -37,7 +44,6 @@
 @property (nonatomic,strong) NSArray *weiboModels;
 
 @property (nonatomic,strong) NSMutableArray *cellModels;
-
 
 
 @end
@@ -73,26 +79,23 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+
+    
+    [self loadCurrentUserData];
+    
     
     //表格初始化
     self.tableView.backgroundColor = [UIColor colorWithRed:226.0/255 green:226.0/255 blue:226.0/255 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
-    
-    [self loadCurrentUserData];
+    self.tableView.delaysContentTouches = NO;
     
     //添加下拉刷新
     [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     [self.tableView.header beginRefreshing];
     
-//    NSURL *songUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"msgcome" ofType:@"wav"]];
-//    AVAudioPlayer *play = [[AVAudioPlayer alloc] initWithContentsOfURL:songUrl error:nil];
-//    play.numberOfLoops = -1;
-//    [play prepareToPlay];
-//    [play play];
-//    play.volume = 1.0;
-//    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushOriginalWeiboInfo:) name:@"pushOriginal" object:nil];
 }
 
 - (void)loadMoreData
@@ -155,7 +158,12 @@
     UIButton *showView;
     if (count) {
         showView = [UIButton buttonWithTitle:[NSString stringWithFormat:@"增加%d条新微薄",count] BackgroundImageName:@"timeline_new_status_background_os7" target:nil action:nil];
-
+        [((ViewController *)self.tabBarController) loadUnreadData];
+        
+        NSURL *songUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"msgcome" ofType:@"wav"]];
+        AVAudioPlayer *play = [[AVAudioPlayer alloc] initWithContentsOfURL:songUrl error:nil];
+        [play prepareToPlay];
+        [play play];
     }
     else
         showView = [UIButton buttonWithTitle:@"没有新的微博" BackgroundImageName:@"timeline_new_status_background_os7" target:nil action:nil];
@@ -185,7 +193,6 @@
 - (void)loadData
 {
     AFHTTPRequestOperationManager *AFNManager = [AFHTTPRequestOperationManager manager];
-    
     //封装数据体
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"access_token"] = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"tokenInfo"] objectForKey:@"access_token"];
@@ -197,8 +204,7 @@
     else
         dict[@"count"] = @5;
    
-    [AFNManager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [AFNManager GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //字典数组转模型数组
         self.weiboModels = [WeiboModel objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         NSMutableArray *cellModelsTemp = [NSMutableArray array];
@@ -284,9 +290,38 @@
 {
     NSLog(@"leftbtn click");
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (void) cellToolBarRetweetButtonClickWithToolBar:(CellToolBar *)toolBar
+{
+    RetweetViewController *retweetVC = [[RetweetViewController alloc] init];
+    retweetVC.title = self.userModel.name;
+    retweetVC.rewteetedWeiboModel = toolBar.cellModel.weiboModel;
+
+    [self.navigationController pushViewController:retweetVC animated:YES];
+}
+
+- (void)cellToolBarCommentButtonClickWithToolBar:(CellToolBar *)toolBar
+{
+    CommentViewController *commentVC = [[CommentViewController alloc] init];
+    commentVC.title = self.userModel.name;
+    commentVC.weiboId = toolBar.cellModel.weiboModel.idstr;
+    
+    [self.navigationController pushViewController:commentVC animated:YES];
+}
+#pragma mark -- CellToolBarDelegate
+
+- (void)CellToolBar:(CellToolBar *)toolBar WithButtonType:(CellToolBarButtonType)buttonType
+{
+    switch (buttonType) {
+        case CellToolBarRetweetButton:
+            [self cellToolBarRetweetButtonClickWithToolBar:toolBar];
+            break;
+        case CellToolBarCommentButton:
+            [self cellToolBarCommentButtonClickWithToolBar:toolBar];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark --ClassifyTableViewDelegate
@@ -307,7 +342,19 @@
     
     WeiboCell *cell = [WeiboCell cellWithTableView:tableView];
     
+    cell.bottomView.delegate = self;
+    
     cell.cellModel = self.cellModels[indexPath.row];
+    //取消cell的点击延迟
+    for (id obj in cell.subviews)
+    {
+        if ([NSStringFromClass([obj class])isEqualToString:@"UITableViewCellScrollView"])
+        {
+            UIScrollView *scroll = (UIScrollView *) obj;
+            scroll.delaysContentTouches =NO;
+            break;
+        }
+    }
     
     return cell;
 }
@@ -318,11 +365,26 @@
     return cellModel.cellHeight;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UIViewController *vc = [[UIViewController alloc]init];
-//    vc.view.backgroundColor = [UIColor redColor];
-//    [self.navigationController pushViewController:vc animated:YES];
-//}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WeiboCell *cell = (WeiboCell *)[tableView cellForRowAtIndexPath:indexPath];
+    
+    WeiboInfoViewController *weiboInfo = [[WeiboInfoViewController alloc] init];
+    weiboInfo.weiboModel = cell.cellModel.weiboModel;
+    weiboInfo.userMidel = self.userModel;
+    [self.navigationController pushViewController:weiboInfo animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
+- (void)pushOriginalWeiboInfo:(NSNotification *)notice
+{
+    WeiboInfoViewController *weiboInfo = [[WeiboInfoViewController alloc] init];
+    weiboInfo.weiboModel = notice.userInfo[@"weiboModel"];
+    weiboInfo.userMidel = self.userModel;
+    [self.navigationController pushViewController:weiboInfo animated:YES];
+}
 
 @end
