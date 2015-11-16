@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+
+typedef enum : NSUInteger {
+    RetweetState,
+    CommentState,
+    AttitudeState,
+} InfoTableViewState;
+
 @class WeiboModel;
 @class UserModel;
+
+
 @interface WeiboInfoViewController : UIViewController
 
 @property (nonatomic,strong) WeiboModel *weiboModel;

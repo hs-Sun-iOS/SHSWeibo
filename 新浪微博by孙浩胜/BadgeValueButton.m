@@ -32,7 +32,7 @@
         CGFloat Height = self.currentBackgroundImage.size.height;
         CGSize size = CGSizeMake(40, Height);
         CGFloat Width = [badgeValue boundingRectWithSize:size options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:self.titleLabel.font} context:nil].size.width + 13;
-        CGFloat X = self.superview.frame.size.width - Width -8;
+        CGFloat X = self.superview.frame.size.width - Width -5;
        
         
         self.frame = CGRectMake(X,Y,Width,Height);

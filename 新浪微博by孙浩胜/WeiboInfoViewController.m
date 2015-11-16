@@ -23,17 +23,26 @@
 #import "MJRefresh.h"
 #import "MJExtension.h"
 #import "UIImage+AutoStretch.h"
+#import "UIButton+FastBtn.h"
 
 
 @interface WeiboInfoViewController () <WeiboInfoToolBarDelegate,UITableViewDataSource,UITableViewDelegate>
-
+/**网络原始数据*/
 @property (nonatomic,strong) NSArray *weiboCommentModels;
-
+/**评论数据(frame)*/
 @property (nonatomic,strong) NSMutableArray *weiboInfoModels;
+/**转发数据(frame)*/
+@property (nonatomic,strong) NSMutableArray *weiboRetweetModels;
 
 @property (nonatomic,strong) WeiboInfoModel *weiboInfoModel;
 
 @property (nonatomic,strong) WeiboInfoCellHeadView *headView;
+
+@property (nonatomic,assign) NSUInteger currentState;
+
+@property (nonatomic,assign) BOOL IsMoreComment;
+
+@property (nonatomic,assign) BOOL IsMoreRetweet;
 
 @end
 
@@ -55,6 +64,14 @@
     return _weiboInfoModels;
 }
 
+- (NSMutableArray *)weiboRetweetModels
+{
+    if (_weiboRetweetModels == nil) {
+        _weiboRetweetModels = [NSMutableArray array];
+    }
+    return _weiboRetweetModels;
+}
+
 - (WeiboInfoModel *)weiboInfoModel
 {
     if (_weiboInfoModel == nil) {
@@ -72,8 +89,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    //属性初始化
     self.title = @"微博正文";
+    _currentState = CommentState;
+    _IsMoreComment = YES;
+    _IsMoreRetweet = YES;
 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 44) style:UITableViewStylePlain];
     [self.view addSubview:self.tableView];
@@ -83,9 +103,30 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.showsVerticalScrollIndicator = NO;
     
-    [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(LoadData)];
-    [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(LoadMore)];
+    __block WeiboInfoViewController *infoVC = self;
+    
+    [self.tableView addLegendHeaderWithRefreshingBlock:^{
+        
+        if (infoVC.currentState == CommentState) {
+            [infoVC LoadDataWithUrl:@"https://api.weibo.com/2/comments/show.json"];
+        } else if (infoVC.currentState == RetweetState)
+            [infoVC LoadDataWithUrl:@"https://api.weibo.com/2/statuses/repost_timeline.json"];
+    }];
+    [self.tableView addLegendFooterWithRefreshingBlock:^{
+        
+        if (infoVC.currentState == CommentState) {
+            [infoVC LoadMoreDataWithUrl:@"https://api.weibo.com/2/comments/show.json"];
+        } else if (infoVC.currentState == RetweetState)
+            [infoVC LoadMoreDataWithUrl:@"https://api.weibo.com/2/statuses/repost_timeline.json"];
+    }];
+    
+    self.tableView.footer.automaticallyRefresh = NO;
     [self.tableView.header beginRefreshing];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"navigationbar_back_os7" HighlightImageName:@"navigationbar_back_highlighted_os7" target:self action:@selector(backBtnClick)]];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headBtnClick:) name:@"headbtn" object:nil];
     
     
     [self setupChildView];
@@ -105,7 +146,7 @@
     infoToolbar.delegate = self;
 }
 
-- (void)LoadData
+- (void)LoadDataWithUrl:(NSString *)urlStr
 {
     AFHTTPRequestOperationManager *AFNManager = [AFHTTPRequestOperationManager manager];
     //封装数据体
@@ -115,14 +156,25 @@
     dict[@"count"] = @10;
     
     //判断是否加载新数据
-    if ((self.weiboCommentModels.count)) {
-        dict[@"since_id"] = ((WeiboCommentModel *)self.weiboCommentModels[0]).idstr;
+    if (self.currentState == CommentState && self.weiboInfoModels.count != 0) {
+        dict[@"since_id"] = ((WeiboInfoModel *)self.weiboInfoModels[0]).weiboCommentModel.idstr;
     }
+    else if (self.currentState == RetweetState && self.weiboRetweetModels.count != 0)
+        dict[@"since_id"] = ((WeiboInfoModel *)self.weiboRetweetModels[0]).weiboCommentModel.idstr;
     
-    [AFNManager GET:@"https://api.weibo.com/2/comments/show.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [AFNManager GET:urlStr parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         //字典数组转模型数组
-        self.weiboCommentModels = [WeiboCommentModel objectArrayWithKeyValuesArray:responseObject[@"comments"]];
+        if (self.currentState == CommentState) {
+            self.weiboCommentModels = [WeiboCommentModel objectArrayWithKeyValuesArray:responseObject[@"comments"]];
+            self.weiboModel.comments_count = [responseObject[@"total_number"] intValue];
+        } else if (self.currentState == RetweetState)
+        {
+            self.weiboCommentModels = [WeiboCommentModel objectArrayWithKeyValuesArray:responseObject[@"reposts"]];
+            self.weiboModel.reposts_count = [responseObject[@"total_number"] intValue];
+        }
+        self.headView.weiboModel = self.weiboModel;
+        
         
         NSMutableArray *InfoModelsTemp = [NSMutableArray array];
         for (WeiboCommentModel *weiboCommentModel in self.weiboCommentModels) {
@@ -131,17 +183,31 @@
             [InfoModelsTemp addObject:weiboInfoModel];
         }
         
-        //合成新旧 数据
+        //合成新数据
         NSMutableArray *tempArr = [NSMutableArray array];
         [tempArr addObjectsFromArray:InfoModelsTemp];
-        [tempArr addObjectsFromArray:self.weiboInfoModels];
-        self.weiboInfoModels = tempArr;
         
-        if (self.weiboInfoModels.count < 10) {
-            [self.tableView.footer noticeNoMoreData];
+        
+        if (self.currentState == CommentState) {
+            //合成旧数据
+            [tempArr addObjectsFromArray:self.weiboInfoModels];
+            //将合成后的数组赋值给属性
+            self.weiboInfoModels = tempArr;
+            [self.tableView.header endRefreshing];
+            if (self.weiboCommentModels.count < 10) {
+                _IsMoreComment = NO;
+                [self.tableView.footer noticeNoMoreData];
+            }
+        } else if (self.currentState == RetweetState)
+        {
+            [tempArr addObjectsFromArray:self.weiboRetweetModels];
+            self.weiboRetweetModels = tempArr;
+            [self.tableView.header endRefreshing];
+            if (self.weiboCommentModels.count < 10) {
+                _IsMoreRetweet = NO;
+                [self.tableView.footer noticeNoMoreData];
+            }
         }
-        
-        [self.tableView.header endRefreshing];
         [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -151,7 +217,7 @@
 
 }
 
-- (void)LoadMore
+- (void)LoadMoreDataWithUrl:(NSString *)urlstr
 {
     AFHTTPRequestOperationManager *AFNManager = [AFHTTPRequestOperationManager manager];
     //封装数据体
@@ -160,13 +226,21 @@
     dict[@"id"] = self.weiboModel.idstr;
     dict[@"count"] = @10;
     
-    //判断是否加载新数据
-    dict[@"max_id"] = ((WeiboCommentModel *)[self.weiboCommentModels lastObject]).idstr;
+    if (self.currentState == CommentState) {
+        dict[@"max_id"] = ((WeiboInfoModel *)[self.weiboInfoModels lastObject]).weiboCommentModel.idstr;
+    }
+    else if (self.currentState == RetweetState)
+        dict[@"max_id"] = ((WeiboInfoModel *)[self.weiboRetweetModels lastObject]).weiboCommentModel.idstr;
     
-    [AFNManager GET:@"https://api.weibo.com/2/comments/show.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [AFNManager GET:urlstr parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         //字典数组转模型数组
-        self.weiboCommentModels = [WeiboCommentModel objectArrayWithKeyValuesArray:responseObject[@"comments"]];
+        if (self.currentState == CommentState) {
+            self.weiboCommentModels = [WeiboCommentModel objectArrayWithKeyValuesArray:responseObject[@"comments"]];
+        } else if (self.currentState == RetweetState)
+            self.weiboCommentModels = [WeiboCommentModel objectArrayWithKeyValuesArray:responseObject[@"reposts"]];
+        
         
         NSMutableArray *InfoModelsTemp = [NSMutableArray array];
         for (int i = 0; i<self.weiboCommentModels.count; i++) {
@@ -178,15 +252,22 @@
             weiboInfoModel.weiboCommentModel = self.weiboCommentModels[i];
             [InfoModelsTemp addObject:weiboInfoModel];
         }
+        
         if (InfoModelsTemp.count == 0) {
             [self.tableView.footer endRefreshing];
             [self.tableView.footer noticeNoMoreData];
         } else
-            [self.tableView.footer resetNoMoreData];
+            [self.tableView.footer endRefreshing];
         
         //组合数据,将新加载的评论+到数组尾部
-        [self.weiboInfoModels addObjectsFromArray:InfoModelsTemp];
-        [self.tableView.footer endRefreshing];
+        if (self.currentState == CommentState) {
+            [self.weiboInfoModels addObjectsFromArray:InfoModelsTemp];
+            _IsMoreComment = InfoModelsTemp.count == 0 ? NO : YES;
+        } else if (self.currentState == RetweetState && InfoModelsTemp.count != 0)
+        {
+            [self.weiboRetweetModels addObjectsFromArray:InfoModelsTemp];
+            _IsMoreRetweet = InfoModelsTemp.count == 0 ? NO : YES;
+        }
         
         [self.tableView reloadData];
         
@@ -245,10 +326,18 @@
 {
     if (section == 0) {
         return 1;
-    } else if (self.weiboInfoModels.count == 0) {
-        return 1;
-    } else
-        return self.weiboInfoModels.count;
+    }
+    else
+    {
+        if (self.currentState == CommentState && self.weiboInfoModels.count != 0) {
+            return self.weiboInfoModels.count;
+        }
+        else if (self.currentState == RetweetState && self.weiboRetweetModels.count != 0) {
+            return self.weiboRetweetModels.count;
+        }
+        else
+            return 1;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -263,13 +352,19 @@
 {
     if (indexPath.section == 0) {
         return self.weiboInfoModel.cellHight;
-    } else
+    }
+    else
     {
-        if (self.weiboInfoModels.count != 0)
-        {
-            WeiboInfoModel *model = self.weiboInfoModels[indexPath.row];
-            return model.cellHight;
-        } else
+        WeiboInfoModel *infoModel;
+        if (self.currentState == CommentState && self.weiboInfoModels.count != 0) {
+            infoModel = self.weiboInfoModels[indexPath.row];
+            return infoModel.cellHight;
+        }
+        else if (self.currentState == RetweetState && self.weiboRetweetModels.count != 0) {
+            infoModel = self.weiboRetweetModels[indexPath.row];
+            return infoModel.cellHight;
+        }
+        else
             return 100;
     }
 }
@@ -280,20 +375,68 @@
         WeiboInfoCellTableViewCell *cell = [WeiboInfoCellTableViewCell cellWithModel:self.weiboInfoModel tableView:tableView];
         return cell;
     }
-    else {
-        if (self.weiboInfoModels.count != 0) {
-            WeiboCommentCell *cell = [WeiboCommentCell cellWithtableView:tableView];
+    else
+    {
+//        if (self.tableView.footer.noMoreLabel.hidden) {
+//            self.tableView.footer.noMoreLabel.hidden = NO;
+//        }
+        WeiboCommentCell *cell = [WeiboCommentCell cellWithtableView:tableView];
+        if (self.currentState == CommentState && self.weiboInfoModels.count != 0) {
             cell.weiboInfoModel = self.weiboInfoModels[indexPath.row];
-            return cell;
-        } else {
+        }
+        else if (self.currentState == RetweetState && self.weiboRetweetModels.count != 0) {
+            cell.weiboInfoModel = self.weiboRetweetModels[indexPath.row];
+        }
+        else
+        {
+            //self.tableView.footer.noMoreLabel.hidden = YES;
             NodataCell *cell = [NodataCell cellWithTableView:tableView];
+            cell.currentState = self.currentState;
             return cell;
         }
+        return cell;
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)backBtnClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)headBtnClick:(NSNotification *)notice
+{
+    if ([notice.userInfo[@"btnType"] integerValue] == RetweetButtonType) {
+        self.currentState = RetweetState;
+        if (self.weiboRetweetModels.count == 0) {
+            [self LoadDataWithUrl:@"https://api.weibo.com/2/statuses/repost_timeline.json"];
+        }
+        if (_IsMoreRetweet) {
+            [self.tableView.footer resetNoMoreData];
+        } else
+            [self.tableView.footer noticeNoMoreData];
+        [self.tableView reloadData];
+    } else if ([notice.userInfo[@"btnType"] integerValue] == CommentState)
+    {
+        self.currentState = CommentState;
+        if (_IsMoreComment) {
+            [self.tableView.footer resetNoMoreData];
+        } else
+            [self.tableView.footer noticeNoMoreData];
+        [self.tableView reloadData];
+    } else
+    {
+        self.currentState = AttitudeState;
+        [self.tableView.footer noticeNoMoreData];
+        [self.tableView reloadData];
+    }
+}
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

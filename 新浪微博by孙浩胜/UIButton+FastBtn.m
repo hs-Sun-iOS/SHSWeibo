@@ -66,7 +66,7 @@
     [btn setTitleColor:NormalColor forState:UIControlStateNormal];
     [btn setTitleColor:selectedColor forState:UIControlStateSelected];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:13.0f];
-    [btn addTarget:target action:selector forControlEvents:UIControlEventTouchDown];
+    [btn addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
     return btn;
 }
 @end

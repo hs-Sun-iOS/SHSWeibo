@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class WeiboInfoModel;
+
 @interface WeiboCommentCell : UITableViewCell
 
 @property (nonatomic,strong) WeiboInfoModel *weiboInfoModel;
+
 
 + (instancetype)cellWithtableView:(UITableView *)tableview;
 

@@ -35,6 +35,7 @@
         self.commentBtn = [self BtnWithTitle:@"评论" imageName:@"timeline_icon_comment_os7" backgroundImage:@"timeline_card_middlebottom_highlighted_os7" buttonType:WeiboInfoToolBarCommentButton];
         
         self.attitudeBtn = [self BtnWithTitle:@"赞" imageName:@"timeline_icon_unlike_os7" backgroundImage:@"timeline_card_rightbottom_highlighted_os7" buttonType:WeiboInfoToolBarAttitudeButton];
+        [self.attitudeBtn setImage:[UIImage imageNamed:@"statusdetail_comment_icon_like_highlighted"] forState:UIControlStateSelected];
         
         
         
@@ -67,6 +68,25 @@
     if ([self.delegate respondsToSelector:@selector(WeiboInfoToolbar:WithButtonType:)]) {
         [_delegate WeiboInfoToolbar:self WithButtonType:btn.tag];
     }
+    
+    if (btn.tag == WeiboInfoToolBarAttitudeButton) {
+        if (btn.selected) {
+            btn.selected = NO;
+        } else
+            btn.selected = YES;
+        CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+        animation.keyPath = @"transform";
+        NSValue *v1 = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.5, 1.5, 1.5)];
+        NSValue *v2 = [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.8, 0.8, 0.8)];
+        NSValue *v3 = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)];
+        
+        
+        animation.values = @[v1,v2,v3];
+        animation.duration = 0.3;
+        
+        [btn.layer addAnimation:animation forKey:nil];
+    }
+    
 }
 - (void)layoutSubviews
 {

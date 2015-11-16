@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WeiboInfoViewController.h"
 
 @interface NodataCell : UITableViewCell
 
 @property (nonatomic,weak) UILabel *showInfo;
+@property (nonatomic,assign) InfoTableViewState currentState;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

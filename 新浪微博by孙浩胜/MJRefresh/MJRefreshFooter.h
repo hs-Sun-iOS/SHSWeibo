@@ -27,6 +27,9 @@ typedef enum {
 /** 是否隐藏状态标签 */
 @property (assign, nonatomic, getter=isStateHidden) BOOL stateHidden;
 
+/** 没有更多的数据 */
+@property (weak, nonatomic) UILabel *noMoreLabel;
+
 /**
  * 设置state状态下的状态文字内容title
  */

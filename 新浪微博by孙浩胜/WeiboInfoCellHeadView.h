@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class WeiboModel;
+
+typedef enum : NSUInteger {
+    RetweetButtonType,
+    CommentButtonType,
+    AttitudeButtonType,
+} ButtonType;
 @interface WeiboInfoCellHeadView : UIImageView
 
 @property (nonatomic,strong) WeiboModel *weiboModel;

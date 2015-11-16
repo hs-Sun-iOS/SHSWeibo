@@ -58,6 +58,13 @@
 		1852254A1ABEABDA001F1BB1 /* CellTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185225491ABEABDA001F1BB1 /* CellTopView.m */; };
 		1852254D1ABEAC06001F1BB1 /* CellRetweetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1852254C1ABEAC06001F1BB1 /* CellRetweetView.m */; };
 		185769031AC4EA5A005686AB /* WeiboCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185769021AC4EA5A005686AB /* WeiboCommentCell.m */; };
+		1859B88A1AC7A31500A6FF79 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8801AC7A31500A6FF79 /* FMDatabase.m */; };
+		1859B88B1AC7A31500A6FF79 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8821AC7A31500A6FF79 /* FMDatabaseAdditions.m */; };
+		1859B88C1AC7A31500A6FF79 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8841AC7A31500A6FF79 /* FMDatabasePool.m */; };
+		1859B88D1AC7A31500A6FF79 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8861AC7A31500A6FF79 /* FMDatabaseQueue.m */; };
+		1859B88E1AC7A31500A6FF79 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8891AC7A31500A6FF79 /* FMResultSet.m */; };
+		1859B8901AC7A32200A6FF79 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1859B88F1AC7A32100A6FF79 /* libsqlite3.dylib */; };
+		1859B8941AC7AD1500A6FF79 /* DataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8931AC7AD1500A6FF79 /* DataBase.m */; };
 		186119541AB9FF5C007EC09F /* TabbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186119531AB9FF5C007EC09F /* TabbarButton.m */; };
 		186119571ABA201D007EC09F /* BadgeValueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186119561ABA201D007EC09F /* BadgeValueButton.m */; };
 		1861195C1ABA607A007EC09F /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1861195B1ABA607A007EC09F /* CustomNavigationController.m */; };
@@ -233,6 +240,20 @@
 		1852254C1ABEAC06001F1BB1 /* CellRetweetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellRetweetView.m; sourceTree = "<group>"; };
 		185769011AC4EA5A005686AB /* WeiboCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboCommentCell.h; sourceTree = "<group>"; };
 		185769021AC4EA5A005686AB /* WeiboCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboCommentCell.m; sourceTree = "<group>"; };
+		1859B87F1AC7A31500A6FF79 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		1859B8801AC7A31500A6FF79 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		1859B8811AC7A31500A6FF79 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		1859B8821AC7A31500A6FF79 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		1859B8831AC7A31500A6FF79 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		1859B8841AC7A31500A6FF79 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		1859B8851AC7A31500A6FF79 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		1859B8861AC7A31500A6FF79 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		1859B8871AC7A31500A6FF79 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		1859B8881AC7A31500A6FF79 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		1859B8891AC7A31500A6FF79 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		1859B88F1AC7A32100A6FF79 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		1859B8921AC7AD1500A6FF79 /* DataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBase.h; sourceTree = "<group>"; };
+		1859B8931AC7AD1500A6FF79 /* DataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBase.m; sourceTree = "<group>"; };
 		186119521AB9FF5C007EC09F /* TabbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarButton.h; sourceTree = "<group>"; };
 		186119531AB9FF5C007EC09F /* TabbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarButton.m; sourceTree = "<group>"; };
 		186119551ABA201D007EC09F /* BadgeValueButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeValueButton.h; sourceTree = "<group>"; };
@@ -353,6 +374,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1859B8901AC7A32200A6FF79 /* libsqlite3.dylib in Frameworks */,
 				188F5E471AC0085F008DD8B6 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,6 +451,7 @@
 		182D795E1ABCB8C5000A1F31 /* 第三方框架 */ = {
 			isa = PBXGroup;
 			children = (
+				1859B87E1AC7A31500A6FF79 /* fmdb */,
 				188F5E1F1ABFBB33008DD8B6 /* MJRefresh */,
 				186EAE271ABF120F00061511 /* MJPhotoBrowser */,
 				182D7A101ABCF753000A1F31 /* MJExtension */,
@@ -541,6 +564,33 @@
 			path = MJExtension;
 			sourceTree = "<group>";
 		};
+		1859B87E1AC7A31500A6FF79 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				1859B87F1AC7A31500A6FF79 /* FMDatabase.h */,
+				1859B8801AC7A31500A6FF79 /* FMDatabase.m */,
+				1859B8811AC7A31500A6FF79 /* FMDatabaseAdditions.h */,
+				1859B8821AC7A31500A6FF79 /* FMDatabaseAdditions.m */,
+				1859B8831AC7A31500A6FF79 /* FMDatabasePool.h */,
+				1859B8841AC7A31500A6FF79 /* FMDatabasePool.m */,
+				1859B8851AC7A31500A6FF79 /* FMDatabaseQueue.h */,
+				1859B8861AC7A31500A6FF79 /* FMDatabaseQueue.m */,
+				1859B8871AC7A31500A6FF79 /* FMDB.h */,
+				1859B8881AC7A31500A6FF79 /* FMResultSet.h */,
+				1859B8891AC7A31500A6FF79 /* FMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		1859B8911AC7ACCB00A6FF79 /* 数据库 */ = {
+			isa = PBXGroup;
+			children = (
+				1859B8921AC7AD1500A6FF79 /* DataBase.h */,
+				1859B8931AC7AD1500A6FF79 /* DataBase.m */,
+			);
+			name = "数据库";
+			sourceTree = "<group>";
+		};
 		186119591ABA602E007EC09F /* Others(其他) */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,10 +651,6 @@
 				18DD82FB1AC4F6420022464F /* Cell */,
 				1869A7991AC3F95800A0A7FA /* WeiboInfoTopView.h */,
 				1869A79A1AC3F95800A0A7FA /* WeiboInfoTopView.m */,
-				1869A79C1AC3FA8E00A0A7FA /* WeiboInfoModel.h */,
-				1869A79D1AC3FA8E00A0A7FA /* WeiboInfoModel.m */,
-				1869A7A21AC4157D00A0A7FA /* WeiboCommentModel.h */,
-				1869A7A31AC4157D00A0A7FA /* WeiboCommentModel.m */,
 				1869A7A51AC4639400A0A7FA /* WeiboInfoCellHeadView.h */,
 				1869A7A61AC4639400A0A7FA /* WeiboInfoCellHeadView.m */,
 				18DD82FF1AC55DCE0022464F /* WeiboInfoToolbar.h */,
@@ -685,6 +731,7 @@
 		189771E31AB9415900E0621C /* 新浪微博by孙浩胜 */ = {
 			isa = PBXGroup;
 			children = (
+				1859B8911AC7ACCB00A6FF79 /* 数据库 */,
 				182D795A1ABCB335000A1F31 /* OAther认证 */,
 				1820ED361ABB5FBC00DEEDCB /* NewFeatue */,
 				186119591ABA602E007EC09F /* Others(其他) */,
@@ -706,6 +753,7 @@
 		189771E41AB9415900E0621C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1859B88F1AC7A32100A6FF79 /* libsqlite3.dylib */,
 				188F5E461AC0085F008DD8B6 /* AVFoundation.framework */,
 				189771E51AB9415900E0621C /* Info.plist */,
 				189771E61AB9415900E0621C /* main.m */,
@@ -779,6 +827,10 @@
 		1897721F1AB96F2D00E0621C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1869A79C1AC3FA8E00A0A7FA /* WeiboInfoModel.h */,
+				1869A79D1AC3FA8E00A0A7FA /* WeiboInfoModel.m */,
+				1869A7A21AC4157D00A0A7FA /* WeiboCommentModel.h */,
+				1869A7A31AC4157D00A0A7FA /* WeiboCommentModel.m */,
 				182D79DE1ABCE0B7000A1F31 /* WeiboModel.h */,
 				182D79DF1ABCE0B7000A1F31 /* WeiboModel.m */,
 				182D79E11ABCE0D3000A1F31 /* UserModel.h */,
@@ -1057,6 +1109,8 @@
 				1897721D1AB959FC00E0621C /* UsersViewController.m in Sources */,
 				186B99131AC29E2D00907825 /* RetweetViewController.m in Sources */,
 				186EAE3A1ABF120F00061511 /* MJPhotoToolbar.m in Sources */,
+				1859B88E1AC7A31500A6FF79 /* FMResultSet.m in Sources */,
+				1859B8941AC7AD1500A6FF79 /* DataBase.m in Sources */,
 				1869A7A71AC4639400A0A7FA /* WeiboInfoCellHeadView.m in Sources */,
 				182D79731ABCB8D9000A1F31 /* AFHTTPRequestOperation.m in Sources */,
 				182D7A051ABCEBC6000A1F31 /* SDWebImageCompat.m in Sources */,
@@ -1066,6 +1120,7 @@
 				186119571ABA201D007EC09F /* BadgeValueButton.m in Sources */,
 				182D7A281ABCF753000A1F31 /* MJType.m in Sources */,
 				189771ED1AB9415900E0621C /* ViewController.m in Sources */,
+				1859B88A1AC7A31500A6FF79 /* FMDatabase.m in Sources */,
 				186B99161AC29EF000907825 /* RetweetTextView.m in Sources */,
 				182D7A091ABCEBC6000A1F31 /* SDWebImageManager.m in Sources */,
 				182D7A241ABCF753000A1F31 /* MJArgument.m in Sources */,
@@ -1096,6 +1151,7 @@
 				1852254A1ABEABDA001F1BB1 /* CellTopView.m in Sources */,
 				185769031AC4EA5A005686AB /* WeiboCommentCell.m in Sources */,
 				1869A7A41AC4157D00A0A7FA /* WeiboCommentModel.m in Sources */,
+				1859B88B1AC7A31500A6FF79 /* FMDatabaseAdditions.m in Sources */,
 				182D79E31ABCE0D3000A1F31 /* UserModel.m in Sources */,
 				182D7A021ABCEBC6000A1F31 /* MKAnnotationView+WebCache.m in Sources */,
 				188F5E411ABFBB33008DD8B6 /* UIScrollView+MJExtension.m in Sources */,
@@ -1123,6 +1179,7 @@
 				182D7A271ABCF753000A1F31 /* MJMethod.m in Sources */,
 				182D795D1ABCB5AA000A1F31 /* OAuthViewController.m in Sources */,
 				182D7A071ABCEBC6000A1F31 /* SDWebImageDownloader.m in Sources */,
+				1859B88D1AC7A31500A6FF79 /* FMDatabaseQueue.m in Sources */,
 				1869A78F1AC3D25400A0A7FA /* CommentViewController.m in Sources */,
 				188F5E3A1ABFBB33008DD8B6 /* MJRefreshConst.m in Sources */,
 				189772111AB9589F00E0621C /* HomeViewController.m in Sources */,
@@ -1136,6 +1193,7 @@
 				182D7A0A1ABCEBC6000A1F31 /* SDWebImagePrefetcher.m in Sources */,
 				186EAE411ABF146900061511 /* SDWebImageManager+MJ.m in Sources */,
 				186EAE391ABF120F00061511 /* MJPhotoProgressView.m in Sources */,
+				1859B88C1AC7A31500A6FF79 /* FMDatabasePool.m in Sources */,
 				182D7A0D1ABCEBC6000A1F31 /* UIImage+MultiFormat.m in Sources */,
 				188F5E3E1ABFBB33008DD8B6 /* MJRefreshHeader.m in Sources */,
 				182D7A0F1ABCEBC6000A1F31 /* UIImageView+WebCache.m in Sources */,

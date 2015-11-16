@@ -11,11 +11,7 @@
 #import "WeiboModel.h"
 #import "UIImage+AutoStretch.h"
 
-typedef enum : NSUInteger {
-    RetweetButtonType,
-    CommentButtonType,
-    AttitudeButtonType,
-} ButtonType;
+
 
 @interface WeiboInfoCellHeadView ()
 
@@ -68,7 +64,7 @@ typedef enum : NSUInteger {
     self.attitudeBtn.frame = CGRectMake(270, 0, size.width, size.height);
     self.attitudeBtn.center = CGPointMake(self.attitudeBtn.center.x, self.frame.size.height/2);
     
-    self.indicator.center = CGPointMake(self.commentBtn.center.x, 49);
+    self.indicator.center = CGPointMake(self.selectedBtn.center.x, 49);
 }
 
 - (void)setupChildView
@@ -99,6 +95,7 @@ typedef enum : NSUInteger {
     [self addSubview:indicator];
     self.indicator = indicator;
     
+    
 }
 
 - (void)btnClick:(UIButton *)btn
@@ -108,10 +105,10 @@ typedef enum : NSUInteger {
     btn.selected = YES;
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.indicator.center = CGPointMake(btn.center.x, 50);
+        self.indicator.center = CGPointMake(btn.center.x, 51);
     }];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"headbtn" object:nil userInfo:@{@"btnType":[NSString stringWithFormat:@"%d",btn.tag]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"headbtn" object:nil userInfo:@{@"btnType":[NSString stringWithFormat:@"%ld",(long)btn.tag]}];
 }
 
 @end

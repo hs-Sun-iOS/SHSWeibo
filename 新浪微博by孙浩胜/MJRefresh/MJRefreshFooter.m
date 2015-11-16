@@ -20,8 +20,7 @@
 @property (weak, nonatomic) UILabel *stateLabel;
 /** 点击可以加载更多 */
 @property (weak, nonatomic) UIButton *loadMoreButton;
-/** 没有更多的数据 */
-@property (weak, nonatomic) UILabel *noMoreLabel;
+
 /** 即将要执行的代码 */
 @property (strong, nonatomic) NSMutableArray *willExecuteBlocks;
 @end

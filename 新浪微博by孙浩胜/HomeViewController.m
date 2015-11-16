@@ -27,6 +27,7 @@
 #import "RetweetViewController.h"
 #import "CommentViewController.h"
 #import "WeiboInfoViewController.h"
+#import "DataBase.h"
 #import <AVFoundation/AVFoundation.h>
 
 
@@ -75,7 +76,6 @@
     return _ctb;
 }
 
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -91,47 +91,66 @@
     self.tableView.delaysContentTouches = NO;
     
     //添加下拉刷新
-    [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+    [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(loadDataFromWebservice)];
     [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    [self.tableView.header beginRefreshing];
+    self.tableView.footer.automaticallyRefresh = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushOriginalWeiboInfo:) name:@"pushOriginal" object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    dict[@"access_token"] = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"tokenInfo"] objectForKey:@"access_token"];
+    dict[@"count"] = @10;
+    if ([DataBase getJsonDataArrayFromDataBaseWithParameters:dict].count != 0) {
+        [self LoadLocalCacheDataWithParameters:dict];
+        self.tableView.header.state = MJRefreshFooterStateIdle;
+    } else
+        [self.tableView.header beginRefreshing];
+    [super viewWillAppear:animated];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)loadMoreData
 {
-    AFHTTPRequestOperationManager *AFNManager = [AFHTTPRequestOperationManager manager];
-    
     //封装数据体
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"access_token"] = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"tokenInfo"] objectForKey:@"access_token"];
     dict[@"max_id"] = ((CellModel *)[self.cellModels lastObject]).weiboModel.idstr;
-    dict[@"count"] = @5;
+    dict[@"count"] = @10;
     
-    [AFNManager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        //字典数组转模型数组
-        self.weiboModels = [WeiboModel objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-        
-        
-        NSMutableArray *cellModelsTemp = [NSMutableArray array];
-        
-        for (WeiboModel *weiboModel in self.weiboModels) {
-            CellModel *cellModel = [[CellModel alloc] init];
-            cellModel.weiboModel = weiboModel;
-            [cellModelsTemp addObject:cellModel];
-        }
-        
-        //合成新旧 数据
-        [self.cellModels addObjectsFromArray:cellModelsTemp];
-        
-        [self.tableView reloadData];
-        [self.tableView.footer endRefreshing];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@",error);
-        [self.tableView.footer endRefreshing];
-    }];
+    if ([DataBase getJsonDataArrayFromDataBaseWithParameters:dict].count != 0) {
+        self.weiboModels = [WeiboModel objectArrayWithKeyValuesArray:[DataBase getJsonDataArrayFromDataBaseWithParameters:dict]];
+    } else
+    {
+        AFHTTPRequestOperationManager *AFNManager = [AFHTTPRequestOperationManager manager];
+        [AFNManager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            //字典数组转模型数组
+            self.weiboModels = [WeiboModel objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@",error);
+            [self.tableView.footer endRefreshing];
+        }];
+    }
+    NSMutableArray *cellModelsTemp = [NSMutableArray array];
+    
+    for (WeiboModel *weiboModel in self.weiboModels) {
+        CellModel *cellModel = [[CellModel alloc] init];
+        cellModel.weiboModel = weiboModel;
+        [cellModelsTemp addObject:cellModel];
+    }
+    
+    //合成新旧 数据
+    [self.cellModels addObjectsFromArray:cellModelsTemp];
+    
+    [self.tableView reloadData];
+    [self.tableView.footer endRefreshing];
 
 }
 
@@ -189,22 +208,25 @@
 
 }
 
-//加载数据
-- (void)loadData
+//加载网络数据数据
+- (void)loadDataFromWebservice
 {
-    AFHTTPRequestOperationManager *AFNManager = [AFHTTPRequestOperationManager manager];
     //封装数据体
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"access_token"] = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"tokenInfo"] objectForKey:@"access_token"];
     
     //判断是否加载新数据
     if ((self.cellModels.count)) {
-         dict[@"since_id"] = ((CellModel *)self.cellModels[0]).weiboModel.idstr;
+        dict[@"since_id"] = ((CellModel *)self.cellModels[0]).weiboModel.idstr;
+        dict[@"count"] = @100;
     }
     else
-        dict[@"count"] = @5;
-   
+        dict[@"count"] = @10;
+    
+    AFHTTPRequestOperationManager *AFNManager = [AFHTTPRequestOperationManager manager];
     [AFNManager GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [DataBase addJsonDataArrayToDataBase:responseObject[@"statuses"]];
         //字典数组转模型数组
         self.weiboModels = [WeiboModel objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         NSMutableArray *cellModelsTemp = [NSMutableArray array];
@@ -229,8 +251,20 @@
         NSLog(@"%@",error);
         [self.tableView.header endRefreshing];
     }];
+}
 
-    
+//加载本地数据
+- (void)LoadLocalCacheDataWithParameters:(NSDictionary *)parameters
+{
+    self.weiboModels = [WeiboModel objectArrayWithKeyValuesArray:[DataBase getJsonDataArrayFromDataBaseWithParameters:parameters]];
+    NSMutableArray *cellModelsTemp = [NSMutableArray array];
+    for (WeiboModel *weiboModel in self.weiboModels) {
+        CellModel *cellModel = [[CellModel alloc] init];
+        cellModel.weiboModel = weiboModel;
+        [cellModelsTemp addObject:cellModel];
+    }
+    self.cellModels = cellModelsTemp;
+    [self.tableView reloadData];
 }
 
 //初始化导航栏

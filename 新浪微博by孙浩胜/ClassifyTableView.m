@@ -60,7 +60,7 @@ NSIndexPath *selectedIndex ;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"我的好友%d",indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"我的好友%ld",indexPath.row];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
