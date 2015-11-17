@@ -64,8 +64,9 @@
 
 - (void)btnClick:(UIButton *)btn
 {
-    if([self.delegate respondsToSelector:@selector(tabbar:SelectedBtnFrom:to:)])
+    if([self.delegate respondsToSelector:@selector(tabbar:SelectedBtnFrom:to:)]) {
         [self.delegate tabbar:self SelectedBtnFrom:self.selectedBtn.tag to:btn.tag];
+    }
     
     self.selectedBtn.selected = NO;
     btn.selected = YES;

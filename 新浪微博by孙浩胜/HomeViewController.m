@@ -28,7 +28,7 @@
 #import "CommentViewController.h"
 #import "WeiboInfoViewController.h"
 #import "DataBase.h"
-#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 
 #define TITLE_BUTTON_UP 1
@@ -50,31 +50,7 @@
 @end
 
 @implementation HomeViewController
-//数组的延迟加载
 
-- (NSMutableArray *)cellModels
-{
-    if (_cellModels == nil) {
-        _cellModels = [NSMutableArray array];
-    }
-    return _cellModels;
-}
-- (NSArray *)weiboModels
-{
-    if (_weiboModels == nil) {
-        _weiboModels = [NSArray array];
-    }
-    return _weiboModels;
-}
-- (ClassifyTableView *)ctb
-{
-    if (_ctb == nil) {
-        _ctb = [[ClassifyTableView alloc] initWithFrame:CGRectMake(0, 0, 200, 400)];
-        _ctb.delegate = self;
-        _ctb.titleBtn = _titleBtn;
-    }
-    return _ctb;
-}
 
 - (void)viewDidLoad {
     
@@ -83,11 +59,10 @@
     
     [self loadCurrentUserData];
     
-    
     //表格初始化
     self.tableView.backgroundColor = [UIColor colorWithRed:226.0/255 green:226.0/255 blue:226.0/255 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.delaysContentTouches = NO;
     
     //添加下拉刷新
@@ -100,6 +75,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"access_token"] = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"tokenInfo"] objectForKey:@"access_token"];
     dict[@"count"] = @10;
@@ -108,7 +84,6 @@
         self.tableView.header.state = MJRefreshFooterStateIdle;
     } else
         [self.tableView.header beginRefreshing];
-    [super viewWillAppear:animated];
 }
 
 - (void)dealloc
@@ -172,20 +147,21 @@
 }
 
 //显示新加载的微博个数
-- (void)showNewWeiboCounts:(int)count
+- (void)showNewWeiboCounts:(NSInteger)count
 {
     UIButton *showView;
-    if (count) {
-        showView = [UIButton buttonWithTitle:[NSString stringWithFormat:@"增加%d条新微薄",count] BackgroundImageName:@"timeline_new_status_background_os7" target:nil action:nil];
+    if (count != 0) {
+        showView = [UIButton buttonWithTitle:[NSString stringWithFormat:@"增加%ld条新微博",count] BackgroundImageName:@"timeline_new_status_background_os7" target:nil action:nil];
         [((ViewController *)self.tabBarController) loadUnreadData];
         
         NSURL *songUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"msgcome" ofType:@"wav"]];
-        AVAudioPlayer *play = [[AVAudioPlayer alloc] initWithContentsOfURL:songUrl error:nil];
-        [play prepareToPlay];
-        [play play];
+        SystemSoundID soundid;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef _Nonnull)(songUrl), &soundid);
+        AudioServicesPlaySystemSound(soundid);
     }
-    else
+    else {
         showView = [UIButton buttonWithTitle:@"没有新的微博" BackgroundImageName:@"timeline_new_status_background_os7" target:nil action:nil];
+    }
     
     showView.frame = CGRectMake(0, 24, self.view.window.frame.size.width, 40);
     [showView setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
@@ -199,10 +175,10 @@
             [UIView animateWithDuration:1.0 animations:^{
                 showView.center = CGPointMake(self.view.window.frame.size.width/2, 44);
             } completion:^(BOOL finished) {
-                if (finished) {
-                    [showView removeFromSuperview];
-                }
+                [showView removeFromSuperview];
             }];
+        } else {
+            [showView removeFromSuperview];
         }
     }];
 
@@ -218,7 +194,7 @@
     //判断是否加载新数据
     if ((self.cellModels.count)) {
         dict[@"since_id"] = ((CellModel *)self.cellModels[0]).weiboModel.idstr;
-        dict[@"count"] = @100;
+        dict[@"count"] = @5;
     }
     else
         dict[@"count"] = @10;
@@ -420,5 +396,30 @@
     weiboInfo.userMidel = self.userModel;
     [self.navigationController pushViewController:weiboInfo animated:YES];
 }
+#pragma mark - lazy load
+//数组的延迟加载
 
+- (NSMutableArray *)cellModels
+{
+    if (_cellModels == nil) {
+        _cellModels = [NSMutableArray array];
+    }
+    return _cellModels;
+}
+- (NSArray *)weiboModels
+{
+    if (_weiboModels == nil) {
+        _weiboModels = [NSArray array];
+    }
+    return _weiboModels;
+}
+- (ClassifyTableView *)ctb
+{
+    if (_ctb == nil) {
+        _ctb = [[ClassifyTableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-100, 45, 200, 400)];
+        _ctb.delegate = self;
+        _ctb.titleBtn = _titleBtn;
+    }
+    return _ctb;
+}
 @end

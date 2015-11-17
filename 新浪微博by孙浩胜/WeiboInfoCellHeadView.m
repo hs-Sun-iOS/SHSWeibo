@@ -61,7 +61,7 @@
     
     [self.attitudeBtn setTitle:[NSString stringWithFormat:@"赞 %d",_weiboModel.attitudes_count] forState:UIControlStateNormal];
     size = [self.attitudeBtn.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.attitudeBtn.titleLabel.font} context:nil].size;
-    self.attitudeBtn.frame = CGRectMake(270, 0, size.width, size.height);
+    self.attitudeBtn.frame = CGRectMake(self.frame.size.width - size.width - 10, 0, size.width, size.height);
     self.attitudeBtn.center = CGPointMake(self.attitudeBtn.center.x, self.frame.size.height/2);
     
     self.indicator.center = CGPointMake(self.selectedBtn.center.x, 49);

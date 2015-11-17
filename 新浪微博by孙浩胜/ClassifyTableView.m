@@ -20,7 +20,6 @@ NSIndexPath *selectedIndex ;
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
         imageView.image = [UIImage autoStretchWithimageName:@"popover_background"];
-        imageView.center = CGPointMake(self.bounds.size.width/2,self.bounds.size.height/2 - 30);
         imageView.userInteractionEnabled = YES;
         
         
@@ -83,7 +82,7 @@ NSIndexPath *selectedIndex ;
     if ([self.delegate respondsToSelector:@selector(ClassifyTableView:selectedItem:)]) {
         [self.delegate ClassifyTableView:self selectedItem:cell.textLabel.text];
     }
-    [self touchesEnded:nil withEvent:nil];
+    [self touchesEnded:[NSSet new] withEvent:[UIEvent new]];
 }
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {

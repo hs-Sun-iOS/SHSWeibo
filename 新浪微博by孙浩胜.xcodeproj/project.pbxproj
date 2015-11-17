@@ -63,7 +63,6 @@
 		1859B88C1AC7A31500A6FF79 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8841AC7A31500A6FF79 /* FMDatabasePool.m */; };
 		1859B88D1AC7A31500A6FF79 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8861AC7A31500A6FF79 /* FMDatabaseQueue.m */; };
 		1859B88E1AC7A31500A6FF79 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8891AC7A31500A6FF79 /* FMResultSet.m */; };
-		1859B8901AC7A32200A6FF79 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1859B88F1AC7A32100A6FF79 /* libsqlite3.dylib */; };
 		1859B8941AC7AD1500A6FF79 /* DataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859B8931AC7AD1500A6FF79 /* DataBase.m */; };
 		186119541AB9FF5C007EC09F /* TabbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186119531AB9FF5C007EC09F /* TabbarButton.m */; };
 		186119571ABA201D007EC09F /* BadgeValueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186119561ABA201D007EC09F /* BadgeValueButton.m */; };
@@ -109,7 +108,6 @@
 		188F5E411ABFBB33008DD8B6 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F5E331ABFBB33008DD8B6 /* UIScrollView+MJExtension.m */; };
 		188F5E421ABFBB33008DD8B6 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F5E351ABFBB33008DD8B6 /* UIScrollView+MJRefresh.m */; };
 		188F5E431ABFBB33008DD8B6 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F5E371ABFBB33008DD8B6 /* UIView+MJExtension.m */; };
-		188F5E471AC0085F008DD8B6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188F5E461AC0085F008DD8B6 /* AVFoundation.framework */; };
 		189771E71AB9415900E0621C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 189771E61AB9415900E0621C /* main.m */; };
 		189771EA1AB9415900E0621C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 189771E91AB9415900E0621C /* AppDelegate.m */; };
 		189771ED1AB9415900E0621C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189771EC1AB9415900E0621C /* ViewController.m */; };
@@ -123,6 +121,7 @@
 		189772321AB9713C00E0621C /* Tabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 189772311AB9713C00E0621C /* Tabbar.m */; };
 		18DD82FE1AC4F6800022464F /* NodataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DD82FD1AC4F6800022464F /* NodataCell.m */; };
 		18DD83011AC55DCE0022464F /* WeiboInfoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DD83001AC55DCE0022464F /* WeiboInfoToolbar.m */; };
+		3A81A6A11BFAEED500979773 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A81A6A01BFAEED500979773 /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,7 +250,6 @@
 		1859B8871AC7A31500A6FF79 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		1859B8881AC7A31500A6FF79 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		1859B8891AC7A31500A6FF79 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		1859B88F1AC7A32100A6FF79 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1859B8921AC7AD1500A6FF79 /* DataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBase.h; sourceTree = "<group>"; };
 		1859B8931AC7AD1500A6FF79 /* DataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBase.m; sourceTree = "<group>"; };
 		186119521AB9FF5C007EC09F /* TabbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarButton.h; sourceTree = "<group>"; };
@@ -367,6 +365,7 @@
 		18DD82FD1AC4F6800022464F /* NodataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodataCell.m; sourceTree = "<group>"; };
 		18DD82FF1AC55DCE0022464F /* WeiboInfoToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboInfoToolbar.h; sourceTree = "<group>"; };
 		18DD83001AC55DCE0022464F /* WeiboInfoToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboInfoToolbar.m; sourceTree = "<group>"; };
+		3A81A6A01BFAEED500979773 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,8 +373,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1859B8901AC7A32200A6FF79 /* libsqlite3.dylib in Frameworks */,
-				188F5E471AC0085F008DD8B6 /* AVFoundation.framework in Frameworks */,
+				3A81A6A11BFAEED500979773 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,7 +751,7 @@
 		189771E41AB9415900E0621C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1859B88F1AC7A32100A6FF79 /* libsqlite3.dylib */,
+				3A81A6A01BFAEED500979773 /* libsqlite3.tbd */,
 				188F5E461AC0085F008DD8B6 /* AVFoundation.framework */,
 				189771E51AB9415900E0621C /* Info.plist */,
 				189771E61AB9415900E0621C /* main.m */,
@@ -1043,6 +1041,7 @@
 				TargetAttributes = {
 					189771E01AB9415900E0621C = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 4Z352D79DP;
 					};
 					189771F91AB9415900E0621C = {
 						CreatedOnToolsVersion = 6.2;
@@ -1318,9 +1317,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "新浪微博by孙浩胜/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ios.qqb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1330,9 +1331,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "新浪微博by孙浩胜/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ios.qqb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

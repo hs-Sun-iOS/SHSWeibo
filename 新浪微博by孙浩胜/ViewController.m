@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadCustonTabbar];
+    [self loadCustomTabbar];
     
     //初始化所有子视图控制器
     [self setupAllChildViewController];
@@ -69,7 +69,7 @@
     
     [AFNManager GET:@"https://rm.api.weibo.com/2/remind/unread_count.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        //字典数组转模型数组
+        //字典转模型
         self.unReadModel = [UnReadModel objectWithKeyValues:responseObject];
         //NSLog(@"%d",self.unReadModel.status);
         
@@ -84,23 +84,26 @@
     _unReadModel = unReadModel;
     if (unReadModel.status == 0) {
         ((UIViewController *)self.viewControllers[0]).tabBarItem.badgeValue = nil;
-    } else
+    } else {
         ((UIViewController *)self.viewControllers[0]).tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",unReadModel.status];
+    }
     if ([unReadModel messageCount] == 0) {
         ((UIViewController *)self.viewControllers[1]).tabBarItem.badgeValue = nil;
     }
-    else
+    else {
         ((UIViewController *)self.viewControllers[1]).tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[unReadModel messageCount]];
+    }
     if (unReadModel.follower == 0) {
          ((UIViewController *)self.viewControllers[3]).tabBarItem.badgeValue = nil;
     }
-    else
+    else {
          ((UIViewController *)self.viewControllers[3]).tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",unReadModel.follower];
+    }
     
 }
 
 #pragma mark --加载自定义tabbar
-- (void)loadCustonTabbar
+- (void)loadCustomTabbar
 {
     Tabbar *customTabbar = [[Tabbar alloc] init];
     customTabbar.frame = self.tabBar.bounds;

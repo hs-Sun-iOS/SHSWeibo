@@ -24,7 +24,7 @@
     application.statusBarHidden = NO;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[OAuthViewController alloc] init];
+    self.window.rootViewController = [[ViewController alloc] init];
     
     [self.window makeKeyAndVisible];
     return YES;
