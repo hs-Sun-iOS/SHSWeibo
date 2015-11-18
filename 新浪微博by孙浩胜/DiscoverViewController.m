@@ -7,92 +7,167 @@
 //
 
 #import "DiscoverViewController.h"
-#import "SearchBar.h"
+#import "SearchResultViewController.h"
+#import "DiscoveryTableViewCell.h"
+#import "DiscoveryGroupsModel.h"
+#import "DiscoveryItemsModel.h"
+#import "TopicCollectionView.h"
 
-@interface DiscoverViewController ()
+@interface DiscoverViewController ()<UISearchControllerDelegate,UISearchBarDelegate>
+@property (nonatomic,strong) UISearchController *searchController;
 
+@property (nonatomic,strong) SearchResultViewController *searchResultVC;
+
+@property (nonatomic,strong) NSMutableArray *groups;
 @end
 
 @implementation DiscoverViewController
 
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    SearchBar *searchBar = [SearchBar SearchBar];
-    self.navigationItem.titleView =searchBar;
+    [self setupSearchController];
+    [self.tableView registerNib:[UINib nibWithNibName:@"DiscoveryTableViewCell" bundle:nil] forCellReuseIdentifier:@"discoveryTableViewCell"];
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setupSearchController {
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self.searchResultVC;
+    self.searchController.delegate = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.hidesNavigationBarDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchBar.placeholder = @"搜索热门话题";
+    self.navigationItem.titleView = self.searchController.searchBar;
 }
 
-#pragma mark - Table view data source
+
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    // Return the number of sections.
-    return 0;
+    return self.groups.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    // Return the number of rows in the section.
-    return 0;
+    return [self.groups[section] items].count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    DiscoveryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"discoveryTableViewCell" forIndexPath:indexPath];
+    DiscoveryGroupsModel *group = self.groups[indexPath.section];
+    DiscoveryItemsModel *item = group.items[indexPath.row];
+    [cell configureCellWithItem:item];
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    DiscoveryGroupsModel *group = self.groups[indexPath.section];
+    DiscoveryItemsModel *item = group.items[indexPath.row];
+    return item.itemSize.height;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 5;
+    }
+    return 2;
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+#pragma mark - UISearchBarDelegate
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self.view addSubview:self.searchResultVC.view];
 }
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [self.searchResultVC.view removeFromSuperview];
 }
-*/
+#pragma mark - getter and setter
+- (SearchResultViewController *)searchResultVC {
+    if (!_searchResultVC) {
+        _searchResultVC = [[SearchResultViewController alloc] init];
+    }
+    return _searchResultVC;
+}
+
+- (NSMutableArray *)groups {
+    if (!_groups) {
+        DiscoveryGroupsModel *group0 = ({
+        DiscoveryGroupsModel *group = [[DiscoveryGroupsModel alloc] init];
+        DiscoveryItemsModel *item = [[DiscoveryItemsModel alloc] init];
+        item.itemSize = CGSizeMake(self.view.frame.size.width, 100);
+        item.contentView = ({
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, item.itemSize.width, item.itemSize.height)];
+            view.backgroundColor = [UIColor redColor];
+            view;
+        });
+        group.items = @[item];
+        group;
+        });
+        
+        DiscoveryGroupsModel *group1 = ({
+            DiscoveryGroupsModel *group = [[DiscoveryGroupsModel alloc] init];
+            DiscoveryItemsModel *item = [[DiscoveryItemsModel alloc] init];
+            item.itemSize = CGSizeMake(self.view.frame.size.width, 100);
+            item.contentView = ({
+                TopicCollectionView *view = [[TopicCollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+                view.topics = @[@"二胎开放",@"巴黎遭恐怖袭击",@"琅琊榜",@"热门话题"];
+                view;
+            });
+            group.items = @[item];
+            group;
+        });
+        
+        DiscoveryGroupsModel *group2 = ({
+            DiscoveryGroupsModel *group = [[DiscoveryGroupsModel alloc] init];
+            
+            DiscoveryItemsModel *item1 = [[DiscoveryItemsModel alloc] init];
+            item1.itemSize = CGSizeMake(self.view.frame.size.width, 44);
+            item1.title = @"热门微博";
+            item1.image = [UIImage imageNamed:@"hot_status"];
+            
+            DiscoveryItemsModel *item2 = [[DiscoveryItemsModel alloc] init];
+            item2.itemSize = CGSizeMake(self.view.frame.size.width, 44);
+            item2.title = @"找人";
+            item2.image = [UIImage imageNamed:@"find_people"];
+            
+            group.items = @[item1,item2];
+            group;
+        });
+        
+        DiscoveryGroupsModel *group3 = ({
+            DiscoveryGroupsModel *group = [[DiscoveryGroupsModel alloc] init];
+            
+            DiscoveryItemsModel *item1 = [[DiscoveryItemsModel alloc] init];
+            item1.itemSize = CGSizeMake(self.view.frame.size.width, 44);
+            item1.title = @"音乐";
+            item1.image = [UIImage imageNamed:@"music"];
+            
+            DiscoveryItemsModel *item2 = [[DiscoveryItemsModel alloc] init];
+            item2.itemSize = CGSizeMake(self.view.frame.size.width, 44);
+            item2.title = @"电影";
+            item2.image = [UIImage imageNamed:@"movie"];
+            
+            DiscoveryItemsModel *item3 = [[DiscoveryItemsModel alloc] init];
+            item3.itemSize = CGSizeMake(self.view.frame.size.width, 44);
+            item3.title = @"周边";
+            item3.image = [UIImage imageNamed:@"near"];
+            
+            DiscoveryItemsModel *item4 = [[DiscoveryItemsModel alloc] init];
+            item4.itemSize = CGSizeMake(self.view.frame.size.width, 44);
+            item4.title = @"更多频道";
+            item4.image = [UIImage imageNamed:@"more"];
+            
+            group.items = @[item1,item2,item3,item4];
+            group;
+        });
+        _groups = [NSMutableArray arrayWithObjects:group0,group1,group2,group3, nil];
+    }
+    return _groups;
+}
+
 
 @end

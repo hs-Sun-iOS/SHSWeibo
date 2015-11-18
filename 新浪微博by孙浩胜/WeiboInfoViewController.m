@@ -95,7 +95,7 @@
 - (void)setupChildView
 {
     WeiboInfoCellHeadView *headView = [[WeiboInfoCellHeadView alloc] init];
-    headView.weiboModel = self.weiboInfoModel.weiboModel.retweeted_status;
+    headView.weiboModel = self.weiboModel;
     self.headView = headView;
     
     WeiboInfoToolbar *infoToolbar = [[WeiboInfoToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, self.view.bounds.size.width, 44)];
@@ -189,7 +189,7 @@
                 continue;
             }
             WeiboInfoModel *weiboInfoModel = [[WeiboInfoModel alloc] init];
-            weiboInfoModel.weiboCommentModel = self.weiboCommentModels[i];
+            weiboInfoModel.weiboCommentModel = self.weiboOriginDates[i];
             [InfoModelsTemp addObject:weiboInfoModel];
         }
         

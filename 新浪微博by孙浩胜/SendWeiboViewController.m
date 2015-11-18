@@ -73,8 +73,9 @@
 
 - (void)keyboardAppear:(NSNotification *)notice
 {
+    CGRect keyboardRect = [[notice.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     [UIView animateWithDuration:0.25f animations:^{
-        self.sendToolbar.transform  = CGAffineTransformMakeTranslation(0, -252.0);
+        self.sendToolbar.transform  = CGAffineTransformMakeTranslation(0, -keyboardRect.size.height);
     }];
 }
 - (void)keyboardDisappear:(NSNotification *)notice
@@ -206,6 +207,7 @@
 - (void)openPhoto
 {
     UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.allowsEditing = YES;
     ipc.delegate = self;
     ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:ipc animated:YES completion:nil];

@@ -13,5 +13,5 @@
 @property (nonatomic,strong) NSArray *photos;
 
 
-+ (CGSize)photosViewSizeWithPhotoCounts:(int)count;
++ (CGSize)photosViewSizeWithPhotoCounts:(NSInteger)count;
 @end

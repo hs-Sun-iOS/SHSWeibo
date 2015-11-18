@@ -101,6 +101,11 @@
     self.frame = cellModel.topViewFrame;
     
     self.headPhotoView.frame = cellModel.headPhotoViewFrame;
+    self.headPhotoView.layer.mask = ({
+        CAShapeLayer *mask = [CAShapeLayer layer];
+        mask.path = CGPathCreateWithEllipseInRect(self.headPhotoView.bounds, NULL);
+        mask;
+    });
     [self.headPhotoView setImageWithURL:[NSURL URLWithString:cellModel.weiboModel.user.profile_image_url] placeholderImage:[UIImage imageNamed:@"group_avator_default"]];
     
     self.nameLabel.frame = cellModel.nameLabelFrame;

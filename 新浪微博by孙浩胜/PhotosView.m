@@ -105,18 +105,18 @@
 
 }
 
-+ (CGSize)photosViewSizeWithPhotoCounts:(int)count
++ (CGSize)photosViewSizeWithPhotoCounts:(NSInteger)count
 {
     // 一行最多有3列
-    int maxColumns = (count == 4) ? 2 : 3;
+    NSInteger maxColumns = (count == 4) ? 2 : 3;
     
     //  总行数
-    int rows = (count + maxColumns - 1) / maxColumns;
+    NSInteger rows = (count + maxColumns - 1) / maxColumns;
     // 高度
     CGFloat photosH = rows * PhotoH + (rows - 1) * PhotoMargin;
     
     // 总列数
-    int cols = (count >= maxColumns) ? maxColumns : count;
+    NSInteger cols = (count >= maxColumns) ? maxColumns : count;
     // 宽度
     CGFloat photosW = cols * PhotoW + (cols - 1) * PhotoMargin;
     

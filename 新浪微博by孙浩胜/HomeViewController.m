@@ -172,11 +172,13 @@
         showView.center = CGPointMake(self.view.window.frame.size.width/2, 84);
     } completion:^(BOOL finished) {
         if (finished) {
-            [UIView animateWithDuration:1.0 animations:^{
-                showView.center = CGPointMake(self.view.window.frame.size.width/2, 44);
-            } completion:^(BOOL finished) {
-                [showView removeFromSuperview];
-            }];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [UIView animateWithDuration:1.0 animations:^{
+                    showView.center = CGPointMake(self.view.window.frame.size.width/2, 44);
+                } completion:^(BOOL finished) {
+                    [showView removeFromSuperview];
+                }];
+            });
         } else {
             [showView removeFromSuperview];
         }

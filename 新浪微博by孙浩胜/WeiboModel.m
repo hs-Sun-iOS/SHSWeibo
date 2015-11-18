@@ -64,9 +64,9 @@
 
 - (void)setSource:(NSString *)source
 {
-    int loc = [source rangeOfString:@">"].location + 1;
+    NSInteger loc = [source rangeOfString:@">"].location + 1;
     if (loc > 0) {
-        int len = [source rangeOfString:@"</"].location - loc;
+        NSInteger len = [source rangeOfString:@"</"].location - loc;
         NSRange range = {loc,len};
         _source = [NSString stringWithFormat:@"来自%@",[source substringWithRange:range]];
     }
@@ -87,9 +87,9 @@
     
     if ([calendar isDateInToday:creatDate]) {
         if ([creatDate deltaWithNow].hour >= 1)
-            return [NSString stringWithFormat:@"%d小时前",[creatDate deltaWithNow].hour];
+            return [NSString stringWithFormat:@"%ld小时前",[creatDate deltaWithNow].hour];
         else if ([creatDate deltaWithNow].minute >= 1)
-            return [NSString stringWithFormat:@"%d分钟前",[creatDate deltaWithNow].minute];
+            return [NSString stringWithFormat:@"%ld分钟前",[creatDate deltaWithNow].minute];
         else
             return @"刚刚";
     }

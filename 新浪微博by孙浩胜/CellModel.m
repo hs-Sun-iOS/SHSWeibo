@@ -26,7 +26,7 @@
     //上部分背景
     CGFloat topViewX = 0;
     CGFloat topViewY = 0;
-    CGFloat topViewW = [UIScreen mainScreen].bounds.size.width - 2 * WEIBO_CELL_BORDER;
+    CGFloat topViewW = [UIScreen mainScreen].bounds.size.width; //- 2 * WEIBO_CELL_BORDER;
     CGFloat topViewH = 0;
     
     

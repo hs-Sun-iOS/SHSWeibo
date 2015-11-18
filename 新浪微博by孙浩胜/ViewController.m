@@ -144,19 +144,18 @@
 #pragma mark --初始化全部子视图控制器
 - (void) setupAllChildViewController{
     HomeViewController *HomeVC = [[HomeViewController alloc] init];
-    [self setupChildViewController:HomeVC title:@"首页" itemImageName:@"tabbar_home_os7" selectedImageName:@"tabbar_home_selected_os7"];
-    
+    [self setupChildViewController:HomeVC title:@"首页" itemImageName:@"tabbar_home" selectedImageName:@"tabbar_home_highlighted"];
     
     
     MessageViewController *MessageVC = [[MessageViewController alloc] init];
-    [self setupChildViewController:MessageVC title:@"消息" itemImageName:@"tabbar_message_center_os7" selectedImageName:@"tabbar_message_center_selected_os7"];
+    [self setupChildViewController:MessageVC title:@"消息" itemImageName:@"tabbar_message_center" selectedImageName:@"tabbar_message_center_highlighted"];
     
-    DiscoverViewController *DiscoverVC = [[DiscoverViewController alloc] init];
-    [self setupChildViewController:DiscoverVC title:@"发现" itemImageName:@"tabbar_discover_os7" selectedImageName:@"tabbar_discover_selected_os7"];
+    DiscoverViewController *DiscoverVC = [[DiscoverViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self setupChildViewController:DiscoverVC title:@"发现" itemImageName:@"tabbar_discover" selectedImageName:@"tabbar_discover_highlighted"];
     
     
     UsersViewController *UsersVC = [[UsersViewController alloc] init];
-    [self setupChildViewController:UsersVC title:@"我" itemImageName:@"tabbar_profile_os7" selectedImageName:@"tabbar_profile_selected_os7"];
+    [self setupChildViewController:UsersVC title:@"我" itemImageName:@"tabbar_profile" selectedImageName:@"tabbar_profile_highlighted"];
 }
 
 #pragma mark -- 初始化子视图控制器

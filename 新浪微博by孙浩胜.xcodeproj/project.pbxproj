@@ -68,7 +68,6 @@
 		186119571ABA201D007EC09F /* BadgeValueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186119561ABA201D007EC09F /* BadgeValueButton.m */; };
 		1861195C1ABA607A007EC09F /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1861195B1ABA607A007EC09F /* CustomNavigationController.m */; };
 		1861195F1ABA7EEB007EC09F /* UIButton+FastBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1861195E1ABA7EEB007EC09F /* UIButton+FastBtn.m */; };
-		186119621ABA8A82007EC09F /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 186119611ABA8A82007EC09F /* SearchBar.m */; };
 		186119651ABA8BEC007EC09F /* UIImage+AutoStretch.m in Sources */ = {isa = PBXBuildFile; fileRef = 186119641ABA8BEC007EC09F /* UIImage+AutoStretch.m */; };
 		186119681ABA9E26007EC09F /* TitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186119671ABA9E26007EC09F /* TitleButton.m */; };
 		1861196B1ABAB0CE007EC09F /* SendWeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1861196A1ABAB0CE007EC09F /* SendWeiboViewController.m */; };
@@ -121,6 +120,12 @@
 		189772321AB9713C00E0621C /* Tabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 189772311AB9713C00E0621C /* Tabbar.m */; };
 		18DD82FE1AC4F6800022464F /* NodataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DD82FD1AC4F6800022464F /* NodataCell.m */; };
 		18DD83011AC55DCE0022464F /* WeiboInfoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DD83001AC55DCE0022464F /* WeiboInfoToolbar.m */; };
+		3A31A4A81BFC148200E0F96A /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31A4A71BFC148200E0F96A /* SearchResultViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3A31A4AC1BFC229300E0F96A /* DiscoveryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31A4AA1BFC229300E0F96A /* DiscoveryTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		3A31A4AD1BFC229300E0F96A /* DiscoveryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A31A4AB1BFC229300E0F96A /* DiscoveryTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		3A31A4B01BFC26AD00E0F96A /* DiscoveryGroupsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31A4AF1BFC26AD00E0F96A /* DiscoveryGroupsModel.m */; settings = {ASSET_TAGS = (); }; };
+		3A31A4B31BFC26EE00E0F96A /* DiscoveryItemsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31A4B21BFC26EE00E0F96A /* DiscoveryItemsModel.m */; settings = {ASSET_TAGS = (); }; };
+		3A31A4B61BFC4CBB00E0F96A /* TopicCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31A4B51BFC4CBB00E0F96A /* TopicCollectionView.m */; settings = {ASSET_TAGS = (); }; };
 		3A81A6A11BFAEED500979773 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A81A6A01BFAEED500979773 /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
@@ -260,8 +265,6 @@
 		1861195B1ABA607A007EC09F /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		1861195D1ABA7EEB007EC09F /* UIButton+FastBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+FastBtn.h"; sourceTree = "<group>"; };
 		1861195E1ABA7EEB007EC09F /* UIButton+FastBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+FastBtn.m"; sourceTree = "<group>"; };
-		186119601ABA8A82007EC09F /* SearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
-		186119611ABA8A82007EC09F /* SearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBar.m; sourceTree = "<group>"; };
 		186119631ABA8BEC007EC09F /* UIImage+AutoStretch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AutoStretch.h"; sourceTree = "<group>"; };
 		186119641ABA8BEC007EC09F /* UIImage+AutoStretch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AutoStretch.m"; sourceTree = "<group>"; };
 		186119661ABA9E26007EC09F /* TitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleButton.h; sourceTree = "<group>"; };
@@ -365,6 +368,17 @@
 		18DD82FD1AC4F6800022464F /* NodataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodataCell.m; sourceTree = "<group>"; };
 		18DD82FF1AC55DCE0022464F /* WeiboInfoToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboInfoToolbar.h; sourceTree = "<group>"; };
 		18DD83001AC55DCE0022464F /* WeiboInfoToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboInfoToolbar.m; sourceTree = "<group>"; };
+		3A31A4A61BFC148200E0F96A /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
+		3A31A4A71BFC148200E0F96A /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
+		3A31A4A91BFC229300E0F96A /* DiscoveryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoveryTableViewCell.h; sourceTree = "<group>"; };
+		3A31A4AA1BFC229300E0F96A /* DiscoveryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoveryTableViewCell.m; sourceTree = "<group>"; };
+		3A31A4AB1BFC229300E0F96A /* DiscoveryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscoveryTableViewCell.xib; sourceTree = "<group>"; };
+		3A31A4AE1BFC26AD00E0F96A /* DiscoveryGroupsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoveryGroupsModel.h; sourceTree = "<group>"; };
+		3A31A4AF1BFC26AD00E0F96A /* DiscoveryGroupsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoveryGroupsModel.m; sourceTree = "<group>"; };
+		3A31A4B11BFC26EE00E0F96A /* DiscoveryItemsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoveryItemsModel.h; sourceTree = "<group>"; };
+		3A31A4B21BFC26EE00E0F96A /* DiscoveryItemsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoveryItemsModel.m; sourceTree = "<group>"; };
+		3A31A4B41BFC4CBB00E0F96A /* TopicCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicCollectionView.h; sourceTree = "<group>"; };
+		3A31A4B51BFC4CBB00E0F96A /* TopicCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicCollectionView.m; sourceTree = "<group>"; };
 		3A81A6A01BFAEED500979773 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -913,6 +927,10 @@
 		189772281AB9705B00E0621C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3A31A4AE1BFC26AD00E0F96A /* DiscoveryGroupsModel.h */,
+				3A31A4AF1BFC26AD00E0F96A /* DiscoveryGroupsModel.m */,
+				3A31A4B11BFC26EE00E0F96A /* DiscoveryItemsModel.h */,
+				3A31A4B21BFC26EE00E0F96A /* DiscoveryItemsModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -920,8 +938,11 @@
 		189772291AB9706400E0621C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				186119601ABA8A82007EC09F /* SearchBar.h */,
-				186119611ABA8A82007EC09F /* SearchBar.m */,
+				3A31A4A91BFC229300E0F96A /* DiscoveryTableViewCell.h */,
+				3A31A4AA1BFC229300E0F96A /* DiscoveryTableViewCell.m */,
+				3A31A4AB1BFC229300E0F96A /* DiscoveryTableViewCell.xib */,
+				3A31A4B41BFC4CBB00E0F96A /* TopicCollectionView.h */,
+				3A31A4B51BFC4CBB00E0F96A /* TopicCollectionView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -931,6 +952,8 @@
 			children = (
 				189772181AB959CC00E0621C /* DiscoverViewController.h */,
 				189772191AB959CC00E0621C /* DiscoverViewController.m */,
+				3A31A4A61BFC148200E0F96A /* SearchResultViewController.h */,
+				3A31A4A71BFC148200E0F96A /* SearchResultViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1073,6 +1096,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A31A4AD1BFC229300E0F96A /* DiscoveryTableViewCell.xib in Resources */,
 				186B99101AC29BD800907825 /* msgcome.wav in Resources */,
 				189771F01AB9415900E0621C /* Main.storyboard in Resources */,
 				189771F21AB9415900E0621C /* Images.xcassets in Resources */,
@@ -1107,6 +1131,7 @@
 				186EAE381ABF120F00061511 /* MJPhotoLoadingView.m in Sources */,
 				1897721D1AB959FC00E0621C /* UsersViewController.m in Sources */,
 				186B99131AC29E2D00907825 /* RetweetViewController.m in Sources */,
+				3A31A4A81BFC148200E0F96A /* SearchResultViewController.m in Sources */,
 				186EAE3A1ABF120F00061511 /* MJPhotoToolbar.m in Sources */,
 				1859B88E1AC7A31500A6FF79 /* FMResultSet.m in Sources */,
 				1859B8941AC7AD1500A6FF79 /* DataBase.m in Sources */,
@@ -1114,6 +1139,7 @@
 				182D79731ABCB8D9000A1F31 /* AFHTTPRequestOperation.m in Sources */,
 				182D7A051ABCEBC6000A1F31 /* SDWebImageCompat.m in Sources */,
 				182D79841ABCB8E7000A1F31 /* MBProgressHUD.m in Sources */,
+				3A31A4B01BFC26AD00E0F96A /* DiscoveryGroupsModel.m in Sources */,
 				182D797A1ABCB8D9000A1F31 /* AFURLResponseSerialization.m in Sources */,
 				182D7A0B1ABCEBC6000A1F31 /* UIButton+WebCache.m in Sources */,
 				186119571ABA201D007EC09F /* BadgeValueButton.m in Sources */,
@@ -1155,12 +1181,12 @@
 				182D7A021ABCEBC6000A1F31 /* MKAnnotationView+WebCache.m in Sources */,
 				188F5E411ABFBB33008DD8B6 /* UIScrollView+MJExtension.m in Sources */,
 				183198DC1ABDFC5500B4FB56 /* WeiboCell.m in Sources */,
+				3A31A4AC1BFC229300E0F96A /* DiscoveryTableViewCell.m in Sources */,
 				182D7A2A1ABCF753000A1F31 /* NSObject+MJCoding.m in Sources */,
 				1861195C1ABA607A007EC09F /* CustomNavigationController.m in Sources */,
 				182D79751ABCB8D9000A1F31 /* AFHTTPSessionManager.m in Sources */,
 				186B991B1AC2BA3400907825 /* WeiboItemView.m in Sources */,
 				182D7A251ABCF753000A1F31 /* MJIvar.m in Sources */,
-				186119621ABA8A82007EC09F /* SearchBar.m in Sources */,
 				1852254D1ABEAC06001F1BB1 /* CellRetweetView.m in Sources */,
 				182D79761ABCB8D9000A1F31 /* AFNetworkReachabilityManager.m in Sources */,
 				188F5E401ABFBB33008DD8B6 /* MJRefreshLegendHeader.m in Sources */,
@@ -1177,6 +1203,7 @@
 				189771E71AB9415900E0621C /* main.m in Sources */,
 				182D7A271ABCF753000A1F31 /* MJMethod.m in Sources */,
 				182D795D1ABCB5AA000A1F31 /* OAuthViewController.m in Sources */,
+				3A31A4B61BFC4CBB00E0F96A /* TopicCollectionView.m in Sources */,
 				182D7A071ABCEBC6000A1F31 /* SDWebImageDownloader.m in Sources */,
 				1859B88D1AC7A31500A6FF79 /* FMDatabaseQueue.m in Sources */,
 				1869A78F1AC3D25400A0A7FA /* CommentViewController.m in Sources */,
@@ -1199,6 +1226,7 @@
 				188F5E431ABFBB33008DD8B6 /* UIView+MJExtension.m in Sources */,
 				1869A7961AC3F3EB00A0A7FA /* WeiboInfoViewController.m in Sources */,
 				185225471ABE7FB8001F1BB1 /* CellToolBar.m in Sources */,
+				3A31A4B31BFC26EE00E0F96A /* DiscoveryItemsModel.m in Sources */,
 				1869A7A11AC4112900A0A7FA /* WeiboInfoCellTableViewCell.m in Sources */,
 				189772321AB9713C00E0621C /* Tabbar.m in Sources */,
 				1820ED421ABB617D00DEEDCB /* UIScrollView+FastScrollView.m in Sources */,
