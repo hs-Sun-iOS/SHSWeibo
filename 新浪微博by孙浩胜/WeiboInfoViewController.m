@@ -65,14 +65,14 @@
         if (infoVC.currentState == CommentState) {
             [infoVC LoadDataWithUrl:@"https://api.weibo.com/2/comments/show.json"];
         } else if (infoVC.currentState == RetweetState)
-            [infoVC LoadDataWithUrl:@"https://api.weibo.com/2/statuses/repost_timeline.json"];
+            [infoVC LoadDataWithUrl:@"https://api.weibo.com/2/comments/show.json"];
     }];
     [self.tableView addLegendFooterWithRefreshingBlock:^{
         
         if (infoVC.currentState == CommentState) {
             [infoVC LoadMoreDataWithUrl:@"https://api.weibo.com/2/comments/show.json"];
         } else if (infoVC.currentState == RetweetState)
-            [infoVC LoadMoreDataWithUrl:@"https://api.weibo.com/2/statuses/repost_timeline.json"];
+            [infoVC LoadMoreDataWithUrl:@"https://api.weibo.com/2/comments/show.json"];
     }];
     
 
@@ -129,8 +129,8 @@
             
         } else if (self.currentState == RetweetState)
         {
-            self.weiboOrininDates = [WeiboCommentModel objectArrayWithKeyValuesArray:responseObject[@"reposts"]];
-            self.weiboModel.reposts_count = [responseObject[@"total_number"] intValue];
+            self.weiboOrininDates = [WeiboCommentModel objectArrayWithKeyValuesArray:responseObject[@"comments"]];
+            //self.weiboModel.reposts_count = [responseObject[@"total_number"] intValue];
             self.weiboRetweetModels = [self combineNewAndOldDataWith:self.weiboRetweetModels];
         }
         self.headView.weiboModel = self.weiboModel;

@@ -743,6 +743,7 @@
 		189771E31AB9415900E0621C /* 新浪微博by孙浩胜 */ = {
 			isa = PBXGroup;
 			children = (
+				18B53DAD1BFCB22500E48F6A /* Send(发微博) */,
 				1859B8911AC7ACCB00A6FF79 /* 数据库 */,
 				182D795A1ABCB335000A1F31 /* OAther认证 */,
 				1820ED361ABB5FBC00DEEDCB /* NewFeatue */,
@@ -802,10 +803,6 @@
 		189772131AB958B400E0621C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1861196C1ABAB44A007EC09F /* SendTextView.h */,
-				1861196D1ABAB44A007EC09F /* SendTextView.m */,
-				180A9D231AC1020700B5530F /* SendToolbar.h */,
-				180A9D241AC1020700B5530F /* SendToolbar.m */,
 				189772301AB9713C00E0621C /* Tabbar.h */,
 				189772311AB9713C00E0621C /* Tabbar.m */,
 				186119521AB9FF5C007EC09F /* TabbarButton.h */,
@@ -994,12 +991,39 @@
 		1897722F1AB970EF00E0621C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				186119691ABAB0CE007EC09F /* SendWeiboViewController.h */,
-				1861196A1ABAB0CE007EC09F /* SendWeiboViewController.m */,
 				189771EB1AB9415900E0621C /* ViewController.h */,
 				189771EC1AB9415900E0621C /* ViewController.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		18B53DAD1BFCB22500E48F6A /* Send(发微博) */ = {
+			isa = PBXGroup;
+			children = (
+				18B53DAF1BFCB31300E48F6A /* View */,
+				18B53DAE1BFCB2FD00E48F6A /* Controller */,
+			);
+			name = "Send(发微博)";
+			sourceTree = "<group>";
+		};
+		18B53DAE1BFCB2FD00E48F6A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				186119691ABAB0CE007EC09F /* SendWeiboViewController.h */,
+				1861196A1ABAB0CE007EC09F /* SendWeiboViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		18B53DAF1BFCB31300E48F6A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1861196C1ABAB44A007EC09F /* SendTextView.h */,
+				1861196D1ABAB44A007EC09F /* SendTextView.m */,
+				180A9D231AC1020700B5530F /* SendToolbar.h */,
+				180A9D241AC1020700B5530F /* SendToolbar.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		18DD82FB1AC4F6420022464F /* Cell */ = {

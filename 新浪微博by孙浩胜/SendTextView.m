@@ -58,5 +58,8 @@
     }
 }
 
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self resignFirstResponder];
+}
 
 @end

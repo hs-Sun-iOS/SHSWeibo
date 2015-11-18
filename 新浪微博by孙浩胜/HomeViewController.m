@@ -49,6 +49,13 @@
 
 @end
 
+/*https://api.weibo.com/2/statuses/public_timeline.json //公共
+ https://api.weibo.com/2/statuses/user_timeline.json // 当前用户 、 uid
+ https://api.weibo.com/2/statuses/bilateral_timeline.json  // 双向关注
+ 
+ */
+
+
 @implementation HomeViewController
 
 

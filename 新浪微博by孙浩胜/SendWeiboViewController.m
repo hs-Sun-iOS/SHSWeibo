@@ -118,14 +118,19 @@
 
 - (void)sendWithImageWith:(AFHTTPRequestOperationManager *)AFNManager parameters:(NSDictionary *)dict
 {
+    
     [AFNManager POST:@"https://upload.api.weibo.com/2/statuses/upload.json" parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        NSData *data = UIImagePNGRepresentation(self.imageView.image);
-        [formData appendPartWithFileData:data name:@"pic" fileName:@"" mimeType:@"image/png"];
+        NSData *data = UIImageJPEGRepresentation(self.imageView.image, 1.0);
+        [formData appendPartWithFileData:data name:@"pic" fileName:@"head.jpg" mimeType:@"image/jpeg"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [MBProgressHUD showSuccess:@"发送成功"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [MBProgressHUD showSuccess:@"发送成功"];
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",error);
-        [MBProgressHUD showSuccess:@"发送失败"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD showError:@"发送失败"];
+        });
     }];
     
 }
@@ -191,7 +196,6 @@
 - (UIImageView *)addImageView
 {
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.backgroundColor = [UIColor redColor];
     imageView.frame = CGRectMake(10, 90, 80, 80);
     _imageView = imageView;
     [self.sendTextView addSubview:imageView];
@@ -200,6 +204,7 @@
 - (void)openCamera
 {
     UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.delegate = self;
     ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
     [self presentViewController:ipc animated:YES completion:nil];
 }
