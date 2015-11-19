@@ -36,7 +36,10 @@
 #define CLIENT_ID 831372268
 #define CLIENT_SECRET 1f624b050701de067967899646bb7072
 #define UID 3192181484
-@interface HomeViewController () <ClassifyTableViewDelegate,CellToolBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface HomeViewController () <ClassifyTableViewDelegate,CellToolBarDelegate,UITableViewDataSource,UITableViewDelegate> {
+    NSString *url;
+    ClassifyTableViewItemType _currentCTVItemType;
+}
 
 @property (nonatomic,strong) ClassifyTableView *ctb; //下拉表格
 
@@ -44,14 +47,19 @@
 
 @property (nonatomic,strong) NSArray *weiboModels;
 
-@property (nonatomic,strong) NSMutableArray *cellModels;
+@property (nonatomic,weak) NSMutableArray *cellModels;
 
+@property (nonatomic,strong) NSMutableArray *homeCellModels;
+@property (nonatomic,strong) NSMutableArray *friendCellModels;
+@property (nonatomic,strong) NSMutableArray *userCellModels;
 
 @end
 
 /*https://api.weibo.com/2/statuses/public_timeline.json //公共
  https://api.weibo.com/2/statuses/user_timeline.json // 当前用户 、 uid
  https://api.weibo.com/2/statuses/bilateral_timeline.json  // 双向关注
+ 
+ @"https://api.weibo.com/2/statuses/friends_timeline.json"
  
  */
 
@@ -63,13 +71,13 @@
     
     [super viewDidLoad];
 
-    
+    url = @"https://api.weibo.com/2/statuses/public_timeline.json";
+    _currentCTVItemType = ClassifyTableViewItemTypeHome;
     [self loadCurrentUserData];
     
     //表格初始化
     self.tableView.backgroundColor = [UIColor colorWithRed:226.0/255 green:226.0/255 blue:226.0/255 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.delaysContentTouches = NO;
     
     //添加下拉刷新
@@ -111,7 +119,7 @@
     } else
     {
         AFHTTPRequestOperationManager *AFNManager = [AFHTTPRequestOperationManager manager];
-        [AFNManager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [AFNManager GET:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             //字典数组转模型数组
             self.weiboModels = [WeiboModel objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
@@ -209,9 +217,10 @@
         dict[@"count"] = @10;
     
     AFHTTPRequestOperationManager *AFNManager = [AFHTTPRequestOperationManager manager];
-    [AFNManager GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        [DataBase addJsonDataArrayToDataBase:responseObject[@"statuses"]];
+    [AFNManager GET:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (_currentCTVItemType == ClassifyTableViewItemTypeHome) {
+            [DataBase addJsonDataArrayToDataBase:responseObject[@"statuses"]];
+        }
         //字典数组转模型数组
         self.weiboModels = [WeiboModel objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         NSMutableArray *cellModelsTemp = [NSMutableArray array];
@@ -225,7 +234,8 @@
         NSMutableArray *tempArr = [NSMutableArray array];
         [tempArr addObjectsFromArray:cellModelsTemp];
         [tempArr addObjectsFromArray:self.cellModels];
-        self.cellModels = tempArr;
+        [self.cellModels removeAllObjects];
+        [self.cellModels addObjectsFromArray:tempArr];
         
         [self.tableView.header endRefreshing];
         [self.tableView reloadData];
@@ -248,7 +258,7 @@
         cellModel.weiboModel = weiboModel;
         [cellModelsTemp addObject:cellModel];
     }
-    self.cellModels = cellModelsTemp;
+    [self.cellModels addObjectsFromArray:cellModelsTemp];
     [self.tableView reloadData];
 }
 
@@ -344,9 +354,41 @@
 }
 
 #pragma mark --ClassifyTableViewDelegate
-- (void)ClassifyTableView:(ClassifyTableView *)ctv selectedItem:(NSString *)itemName
+- (void)ClassifyTableView:(ClassifyTableView *)ctv selectedItemType:(ClassifyTableViewItemType)itemType
 {
-    [_titleBtn setTitle:itemName forState:UIControlStateNormal];
+    NSString *title = nil;
+    switch (itemType) {
+        case ClassifyTableViewItemTypeHome:
+            title = self.userModel.name;
+            url = @"https://api.weibo.com/2/statuses/friends_timeline.json";
+            if (self.homeCellModels.count == 0) {
+                [self.tableView.header beginRefreshing];
+            }
+            break;
+        case ClassifyTableViewItemTypeFriend:
+            title = @"好友圈";
+            url = @"https://api.weibo.com/2/statuses/public_timeline.json";
+            if (self.friendCellModels.count == 0) {
+                [self.tableView.header beginRefreshing];
+            }
+            break;
+        case ClassifyTableViewItemTypeUser:
+            title = @"我的微博";
+            url = @"https://api.weibo.com/2/statuses/user_timeline.json";
+            if (self.userCellModels.count == 0) {
+                [self.tableView.header beginRefreshing];
+            }
+            break;
+        default:
+            break;
+    }
+    if (_currentCTVItemType == itemType) {
+        [self.tableView.header beginRefreshing];
+    }
+    _currentCTVItemType = itemType;
+    [_titleBtn setTitle:title forState:UIControlStateNormal];
+    [self.tableView reloadData];
+    
 }
 
 #pragma mark - Table view data source
@@ -410,10 +452,38 @@
 
 - (NSMutableArray *)cellModels
 {
-    if (_cellModels == nil) {
-        _cellModels = [NSMutableArray array];
+    switch (_currentCTVItemType) {
+        case ClassifyTableViewItemTypeHome:
+            _cellModels = self.homeCellModels;
+            break;
+        case ClassifyTableViewItemTypeFriend:
+            _cellModels = self.friendCellModels;
+            break;
+        case ClassifyTableViewItemTypeUser:
+            _cellModels = self.userCellModels;
+            break;
+        default:
+            break;
     }
     return _cellModels;
+}
+- (NSMutableArray *)homeCellModels {
+    if (!_homeCellModels) {
+        _homeCellModels = [NSMutableArray array];
+    }
+    return _homeCellModels;
+}
+- (NSMutableArray *)friendCellModels {
+    if (!_friendCellModels) {
+        _friendCellModels = [NSMutableArray array];
+    }
+    return _friendCellModels;
+}
+- (NSMutableArray *)userCellModels {
+    if (!_userCellModels) {
+        _userCellModels = [NSMutableArray array];
+    }
+    return _userCellModels;
 }
 - (NSArray *)weiboModels
 {
@@ -425,9 +495,10 @@
 - (ClassifyTableView *)ctb
 {
     if (_ctb == nil) {
-        _ctb = [[ClassifyTableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-100, 45, 200, 400)];
+        _ctb = [[ClassifyTableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-100, 50, 200, 400)];
         _ctb.delegate = self;
         _ctb.titleBtn = _titleBtn;
+        _ctb.itemNames = [NSMutableArray arrayWithArray:@[@"首页",@"好友圈",@"我的微博"]];
     }
     return _ctb;
 }

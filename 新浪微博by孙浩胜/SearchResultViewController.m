@@ -20,7 +20,7 @@
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSLog(@"aaa");
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 10;

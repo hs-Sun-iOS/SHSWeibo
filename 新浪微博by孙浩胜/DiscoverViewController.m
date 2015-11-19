@@ -12,6 +12,7 @@
 #import "DiscoveryGroupsModel.h"
 #import "DiscoveryItemsModel.h"
 #import "TopicCollectionView.h"
+#import "AdvDisplayView.h"
 
 @interface DiscoverViewController ()<UISearchControllerDelegate,UISearchBarDelegate>
 @property (nonatomic,strong) UISearchController *searchController;
@@ -89,6 +90,8 @@
 - (SearchResultViewController *)searchResultVC {
     if (!_searchResultVC) {
         _searchResultVC = [[SearchResultViewController alloc] init];
+        _searchResultVC.view.x = 0;
+        _searchResultVC.view.y = 0;
     }
     return _searchResultVC;
 }
@@ -98,11 +101,11 @@
         DiscoveryGroupsModel *group0 = ({
         DiscoveryGroupsModel *group = [[DiscoveryGroupsModel alloc] init];
         DiscoveryItemsModel *item = [[DiscoveryItemsModel alloc] init];
-        item.itemSize = CGSizeMake(self.view.frame.size.width, 100);
+        item.itemSize = CGSizeMake(self.view.frame.size.width, 150);
         item.contentView = ({
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, item.itemSize.width, item.itemSize.height)];
-            view.backgroundColor = [UIColor redColor];
-            view;
+            AdvDisplayView *advDisplayView = [[AdvDisplayView alloc] initWithFrame:CGRectMake(0, 0, self.view.width,150)];
+            advDisplayView.imageUrls = @[@"http://pic.nipic.com/2007-11-09/2007119122519868_2.jpg",@"http://pic2.ooopic.com/01/03/51/25b1OOOPIC19.jpg",@"http://pic14.nipic.com/20110522/7411759_164157418126_2.jpg",@"http://img2.3lian.com/img2007/19/33/005.jpg"];
+            advDisplayView;
         });
         group.items = @[item];
         group;

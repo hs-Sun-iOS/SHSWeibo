@@ -10,14 +10,21 @@
 #import "TitleButton.h"
 
 @class ClassifyTableView;
+
+typedef NS_ENUM(NSUInteger, ClassifyTableViewItemType) {
+    ClassifyTableViewItemTypeHome,
+    ClassifyTableViewItemTypeFriend,
+    ClassifyTableViewItemTypeUser,
+};
 @protocol ClassifyTableViewDelegate <NSObject>
 
-- (void)ClassifyTableView:(ClassifyTableView *)ctv selectedItem:(NSString *)itemName;
+- (void)ClassifyTableView:(ClassifyTableView *)ctv selectedItemType:(ClassifyTableViewItemType )itemType;
 
 @end
 @interface ClassifyTableView : UIView <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,weak) TitleButton *titleBtn;
 @property (nonatomic,weak) id<ClassifyTableViewDelegate>delegate;
+@property (nonatomic,strong) NSMutableArray *itemNames;
 
 @end

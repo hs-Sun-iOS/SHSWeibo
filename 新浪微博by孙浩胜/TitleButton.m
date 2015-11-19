@@ -26,7 +26,7 @@
         [self setBackgroundImage:[UIImage autoStretchWithimageName:@"navigationbar_filter_background_highlighted_os7"] forState:UIControlStateHighlighted];
         
         self.imageView.contentMode = UIViewContentModeCenter;
-        self.titleLabel.textAlignment = NSTextAlignmentRight;
+        self.titleLabel.textAlignment = NSTextAlignmentCenter;
         
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

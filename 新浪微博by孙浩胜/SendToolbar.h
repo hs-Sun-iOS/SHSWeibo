@@ -16,6 +16,7 @@ typedef enum : NSUInteger {
     SendToolbarButtonTypeMention,
     SendToolbarButtonTypeTrend,
     SendToolbarButtonTypeEmotion,
+    SendToolbarButtonTypeKeyboard,
     SendToolbarButtonTypeIsComment
 } SendToolbarButtonType;
 
@@ -33,4 +34,5 @@ typedef enum : NSUInteger {
 @property (nonatomic,weak) UIButton *smallBtn;
 
 @property (nonatomic,weak) UILabel *smallLabel;
+
 @end

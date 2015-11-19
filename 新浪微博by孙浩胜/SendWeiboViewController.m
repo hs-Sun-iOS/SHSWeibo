@@ -12,8 +12,11 @@
 #import "MBProgressHUD+fastSetup.h"
 #import "SendToolbar.h"
 #import "AFNetworking.h"
+#import "EmotionKeyboard.h"
 
-@interface SendWeiboViewController () <SendToolbarDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface SendWeiboViewController () <SendToolbarDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
+    BOOL _isSwitchingKeyboard;
+}
 
 @property (nonatomic,weak) SendTextView *sendTextView;
 
@@ -22,6 +25,8 @@
 @property (nonatomic,weak) UIImageView *imageView;
 
 @property (nonatomic,strong) NSMutableArray *pictures;
+
+@property (nonatomic,strong) EmotionKeyboard *emotionKeyboard;
 
 @end
 
@@ -33,6 +38,15 @@
         _pictures = [NSMutableArray array];
     }
     return _pictures;
+}
+
+- (EmotionKeyboard *)emotionKeyboard {
+    if (!_emotionKeyboard) {
+        EmotionKeyboard *emotionKeyboard = [[EmotionKeyboard alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 250)];
+        _emotionKeyboard = emotionKeyboard;
+    }
+    _emotionKeyboard.height = self.view.height - CGRectGetMaxY(self.sendToolbar.frame);
+    return _emotionKeyboard;
 }
 
 - (void)viewDidLoad
@@ -73,6 +87,9 @@
 
 - (void)keyboardAppear:(NSNotification *)notice
 {
+    if (_isSwitchingKeyboard) {
+        return;
+    }
     CGRect keyboardRect = [[notice.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     [UIView animateWithDuration:0.25f animations:^{
         self.sendToolbar.transform  = CGAffineTransformMakeTranslation(0, -keyboardRect.size.height);
@@ -80,6 +97,9 @@
 }
 - (void)keyboardDisappear:(NSNotification *)notice
 {
+    if (_isSwitchingKeyboard) {
+        return;
+    }
     [UIView animateWithDuration:0.25f animations:^{
         self.sendToolbar.transform = CGAffineTransformIdentity;
     }];
@@ -149,9 +169,7 @@
 
 - (void)backBtnClick
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)addSendToolbar
@@ -178,9 +196,33 @@
         case SendToolbarButtonTypePicture:
             [self openPhoto];
             break;
+        case SendToolbarButtonTypeEmotion:
+            [self switchKeyboard];
+            break;
+        case SendToolbarButtonTypeKeyboard:
+            [self switchKeyboard];
+            break;
         default:
             break;
     }
+}
+#pragma mark - private method
+
+- (void)switchKeyboard {
+    _isSwitchingKeyboard = YES;
+    if (self.sendTextView.inputView) {
+        self.sendTextView.inputView = nil;
+    } else {
+        self.sendTextView.inputView = self.emotionKeyboard;
+    }
+    [self.sendTextView resignFirstResponder];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.sendTextView becomeFirstResponder];
+        [_emotionKeyboard layoutIfNeeded];
+    });
+    _isSwitchingKeyboard = NO;
+    
 }
 
 #pragma mark - UIImagePickerControllerDelegate

@@ -44,10 +44,10 @@
 
 - (void)addShowInfo
 {
-    UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 100)];
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100)];
     bg.image = [UIImage autoStretchWithimageName:@"statusdetail_comment_background_middle"];
     bg.highlightedImage = [UIImage autoStretchWithimageName:@"statusdetail_comment_background_middle_highlighted"];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 100)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100)];
     label.textAlignment = NSTextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:13.0];

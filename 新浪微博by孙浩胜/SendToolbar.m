@@ -102,6 +102,15 @@
         } else
             btn.selected = YES;
     }
+    if (btn.tag == SendToolbarButtonTypeEmotion) {
+        [btn setImage:[UIImage imageNamed:@"compose_keyboardbutton_background"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"compose_keyboardbutton_background_highlighted"] forState:UIControlStateHighlighted];
+        btn.tag = SendToolbarButtonTypeKeyboard;
+    } else if (btn.tag == SendToolbarButtonTypeKeyboard) {
+        [btn setImage:[UIImage imageNamed:@"compose_emoticonbutton_background_os7"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"compose_emoticonbutton_background_highlighted_os7"] forState:UIControlStateHighlighted];
+        btn.tag = SendToolbarButtonTypeEmotion;
+    }
     if ([_delegate respondsToSelector:@selector(SendToolbar:DidClickBtntype:)]) {
         [_delegate SendToolbar:self DidClickBtntype:btn.tag];
     }

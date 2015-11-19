@@ -120,6 +120,13 @@
 		189772321AB9713C00E0621C /* Tabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 189772311AB9713C00E0621C /* Tabbar.m */; };
 		18DD82FE1AC4F6800022464F /* NodataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DD82FD1AC4F6800022464F /* NodataCell.m */; };
 		18DD83011AC55DCE0022464F /* WeiboInfoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DD83001AC55DCE0022464F /* WeiboInfoToolbar.m */; };
+		3A30B2681BFD53570035C64E /* AdvDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A30B2671BFD53570035C64E /* AdvDisplayView.m */; settings = {ASSET_TAGS = (); }; };
+		3A30B26B1BFD590A0035C64E /* UIView+FrameAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A30B26A1BFD590A0035C64E /* UIView+FrameAdjust.m */; settings = {ASSET_TAGS = (); }; };
+		3A30B2701BFD5F400035C64E /* AdvCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A30B26E1BFD5F400035C64E /* AdvCollectionCell.m */; settings = {ASSET_TAGS = (); }; };
+		3A30B2711BFD5F400035C64E /* AdvCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A30B26F1BFD5F400035C64E /* AdvCollectionCell.xib */; settings = {ASSET_TAGS = (); }; };
+		3A30B2741BFDAF730035C64E /* EmotionKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A30B2731BFDAF730035C64E /* EmotionKeyboard.m */; settings = {ASSET_TAGS = (); }; };
+		3A30B2771BFDAFAA0035C64E /* EmotionToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A30B2761BFDAFAA0035C64E /* EmotionToolbar.m */; settings = {ASSET_TAGS = (); }; };
+		3A30B27A1BFDB0020035C64E /* EmotionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A30B2791BFDB0020035C64E /* EmotionListView.m */; settings = {ASSET_TAGS = (); }; };
 		3A31A4A81BFC148200E0F96A /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31A4A71BFC148200E0F96A /* SearchResultViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3A31A4AC1BFC229300E0F96A /* DiscoveryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31A4AA1BFC229300E0F96A /* DiscoveryTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		3A31A4AD1BFC229300E0F96A /* DiscoveryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A31A4AB1BFC229300E0F96A /* DiscoveryTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
@@ -341,7 +348,6 @@
 		188F5E351ABFBB33008DD8B6 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		188F5E361ABFBB33008DD8B6 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		188F5E371ABFBB33008DD8B6 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
-		188F5E461AC0085F008DD8B6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		189771E11AB9415900E0621C /* 新浪微博by孙浩胜.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博by孙浩胜.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		189771E51AB9415900E0621C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		189771E61AB9415900E0621C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -368,6 +374,20 @@
 		18DD82FD1AC4F6800022464F /* NodataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodataCell.m; sourceTree = "<group>"; };
 		18DD82FF1AC55DCE0022464F /* WeiboInfoToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboInfoToolbar.h; sourceTree = "<group>"; };
 		18DD83001AC55DCE0022464F /* WeiboInfoToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboInfoToolbar.m; sourceTree = "<group>"; };
+		3A30B2661BFD53570035C64E /* AdvDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvDisplayView.h; sourceTree = "<group>"; };
+		3A30B2671BFD53570035C64E /* AdvDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvDisplayView.m; sourceTree = "<group>"; };
+		3A30B2691BFD590A0035C64E /* UIView+FrameAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FrameAdjust.h"; sourceTree = "<group>"; };
+		3A30B26A1BFD590A0035C64E /* UIView+FrameAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FrameAdjust.m"; sourceTree = "<group>"; };
+		3A30B26C1BFD599E0035C64E /* WeiboPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboPrefixHeader.pch; sourceTree = "<group>"; };
+		3A30B26D1BFD5F400035C64E /* AdvCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvCollectionCell.h; sourceTree = "<group>"; };
+		3A30B26E1BFD5F400035C64E /* AdvCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvCollectionCell.m; sourceTree = "<group>"; };
+		3A30B26F1BFD5F400035C64E /* AdvCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvCollectionCell.xib; sourceTree = "<group>"; };
+		3A30B2721BFDAF730035C64E /* EmotionKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmotionKeyboard.h; sourceTree = "<group>"; };
+		3A30B2731BFDAF730035C64E /* EmotionKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmotionKeyboard.m; sourceTree = "<group>"; };
+		3A30B2751BFDAFAA0035C64E /* EmotionToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmotionToolbar.h; sourceTree = "<group>"; };
+		3A30B2761BFDAFAA0035C64E /* EmotionToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmotionToolbar.m; sourceTree = "<group>"; };
+		3A30B2781BFDB0020035C64E /* EmotionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmotionListView.h; sourceTree = "<group>"; };
+		3A30B2791BFDB0020035C64E /* EmotionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmotionListView.m; sourceTree = "<group>"; };
 		3A31A4A61BFC148200E0F96A /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
 		3A31A4A71BFC148200E0F96A /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
 		3A31A4A91BFC229300E0F96A /* DiscoveryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoveryTableViewCell.h; sourceTree = "<group>"; };
@@ -447,6 +467,8 @@
 				1820ED411ABB617D00DEEDCB /* UIScrollView+FastScrollView.m */,
 				183198E41ABEAC4B00B4FB56 /* NSDate+MJ.h */,
 				183198E51ABEAC4B00B4FB56 /* NSDate+MJ.m */,
+				3A30B2691BFD590A0035C64E /* UIView+FrameAdjust.h */,
+				3A30B26A1BFD590A0035C64E /* UIView+FrameAdjust.m */,
 			);
 			name = Categary;
 			sourceTree = "<group>";
@@ -767,9 +789,9 @@
 			isa = PBXGroup;
 			children = (
 				3A81A6A01BFAEED500979773 /* libsqlite3.tbd */,
-				188F5E461AC0085F008DD8B6 /* AVFoundation.framework */,
 				189771E51AB9415900E0621C /* Info.plist */,
 				189771E61AB9415900E0621C /* main.m */,
+				3A30B26C1BFD599E0035C64E /* WeiboPrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -940,6 +962,11 @@
 				3A31A4AB1BFC229300E0F96A /* DiscoveryTableViewCell.xib */,
 				3A31A4B41BFC4CBB00E0F96A /* TopicCollectionView.h */,
 				3A31A4B51BFC4CBB00E0F96A /* TopicCollectionView.m */,
+				3A30B2661BFD53570035C64E /* AdvDisplayView.h */,
+				3A30B2671BFD53570035C64E /* AdvDisplayView.m */,
+				3A30B26D1BFD5F400035C64E /* AdvCollectionCell.h */,
+				3A30B26E1BFD5F400035C64E /* AdvCollectionCell.m */,
+				3A30B26F1BFD5F400035C64E /* AdvCollectionCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1022,6 +1049,12 @@
 				1861196D1ABAB44A007EC09F /* SendTextView.m */,
 				180A9D231AC1020700B5530F /* SendToolbar.h */,
 				180A9D241AC1020700B5530F /* SendToolbar.m */,
+				3A30B2721BFDAF730035C64E /* EmotionKeyboard.h */,
+				3A30B2731BFDAF730035C64E /* EmotionKeyboard.m */,
+				3A30B2751BFDAFAA0035C64E /* EmotionToolbar.h */,
+				3A30B2761BFDAFAA0035C64E /* EmotionToolbar.m */,
+				3A30B2781BFDB0020035C64E /* EmotionListView.h */,
+				3A30B2791BFDB0020035C64E /* EmotionListView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1125,6 +1158,7 @@
 				189771F01AB9415900E0621C /* Main.storyboard in Resources */,
 				189771F21AB9415900E0621C /* Images.xcassets in Resources */,
 				186EAE361ABF120F00061511 /* MJPhotoBrowser.bundle in Resources */,
+				3A30B2711BFD5F400035C64E /* AdvCollectionCell.xib in Resources */,
 				188F5E381ABFBB33008DD8B6 /* MJRefresh.bundle in Resources */,
 				182D79831ABCB8E7000A1F31 /* MBProgressHUD.bundle in Resources */,
 			);
@@ -1160,6 +1194,7 @@
 				1859B88E1AC7A31500A6FF79 /* FMResultSet.m in Sources */,
 				1859B8941AC7AD1500A6FF79 /* DataBase.m in Sources */,
 				1869A7A71AC4639400A0A7FA /* WeiboInfoCellHeadView.m in Sources */,
+				3A30B26B1BFD590A0035C64E /* UIView+FrameAdjust.m in Sources */,
 				182D79731ABCB8D9000A1F31 /* AFHTTPRequestOperation.m in Sources */,
 				182D7A051ABCEBC6000A1F31 /* SDWebImageCompat.m in Sources */,
 				182D79841ABCB8E7000A1F31 /* MBProgressHUD.m in Sources */,
@@ -1178,6 +1213,7 @@
 				1820ED3C1ABB603B00DEEDCB /* NewFeatureViewController.m in Sources */,
 				1869A79B1AC3F95800A0A7FA /* WeiboInfoTopView.m in Sources */,
 				1861196E1ABAB44A007EC09F /* SendTextView.m in Sources */,
+				3A30B27A1BFDB0020035C64E /* EmotionListView.m in Sources */,
 				182D7A061ABCEBC6000A1F31 /* SDWebImageDecoder.m in Sources */,
 				183198E61ABEAC4B00B4FB56 /* NSDate+MJ.m in Sources */,
 				18DD82FE1AC4F6800022464F /* NodataCell.m in Sources */,
@@ -1210,11 +1246,14 @@
 				1861195C1ABA607A007EC09F /* CustomNavigationController.m in Sources */,
 				182D79751ABCB8D9000A1F31 /* AFHTTPSessionManager.m in Sources */,
 				186B991B1AC2BA3400907825 /* WeiboItemView.m in Sources */,
+				3A30B2701BFD5F400035C64E /* AdvCollectionCell.m in Sources */,
 				182D7A251ABCF753000A1F31 /* MJIvar.m in Sources */,
 				1852254D1ABEAC06001F1BB1 /* CellRetweetView.m in Sources */,
 				182D79761ABCB8D9000A1F31 /* AFNetworkReachabilityManager.m in Sources */,
 				188F5E401ABFBB33008DD8B6 /* MJRefreshLegendHeader.m in Sources */,
 				186EAE371ABF120F00061511 /* MJPhotoBrowser.m in Sources */,
+				3A30B2771BFDAFAA0035C64E /* EmotionToolbar.m in Sources */,
+				3A30B2681BFD53570035C64E /* AdvDisplayView.m in Sources */,
 				189772171AB959B000E0621C /* MessageViewController.m in Sources */,
 				188F5E3C1ABFBB33008DD8B6 /* MJRefreshGifFooter.m in Sources */,
 				182D79821ABCB8E7000A1F31 /* MBProgressHUD+fastSetup.m in Sources */,
@@ -1224,6 +1263,7 @@
 				186EAE471ABF1E1400061511 /* PhotosView.m in Sources */,
 				189771EA1AB9415900E0621C /* AppDelegate.m in Sources */,
 				1861195F1ABA7EEB007EC09F /* UIButton+FastBtn.m in Sources */,
+				3A30B2741BFDAF730035C64E /* EmotionKeyboard.m in Sources */,
 				189771E71AB9415900E0621C /* main.m in Sources */,
 				182D7A271ABCF753000A1F31 /* MJMethod.m in Sources */,
 				182D795D1ABCB5AA000A1F31 /* OAuthViewController.m in Sources */,
@@ -1370,11 +1410,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/Users/sunhaosheng/Desktop/SHSWeibo/新浪微博by孙浩胜/WeiboPrefixHeader.pch";
 				INFOPLIST_FILE = "新浪微博by孙浩胜/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ios.qqb;
+				PRODUCT_BUNDLE_IDENTIFIER = SHS.Weibo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1384,11 +1427,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/Users/sunhaosheng/Desktop/SHSWeibo/新浪微博by孙浩胜/WeiboPrefixHeader.pch";
 				INFOPLIST_FILE = "新浪微博by孙浩胜/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ios.qqb;
+				PRODUCT_BUNDLE_IDENTIFIER = SHS.Weibo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -8,7 +8,11 @@
 
 #import "ClassifyTableView.h"
 #import "UIImage+AutoStretch.h"
-NSIndexPath *selectedIndex ;
+@interface ClassifyTableView () {
+    NSIndexPath *selectedIndex ;
+}
+
+@end
 @implementation ClassifyTableView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -17,6 +21,7 @@ NSIndexPath *selectedIndex ;
     if (self) {
         self.frame = [[UIScreen mainScreen] bounds];
         self.backgroundColor = [UIColor clearColor];
+        selectedIndex = [NSIndexPath indexPathForRow:0 inSection:0];
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
         imageView.image = [UIImage autoStretchWithimageName:@"popover_background"];
@@ -49,7 +54,7 @@ NSIndexPath *selectedIndex ;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.itemNames.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -59,10 +64,17 @@ NSIndexPath *selectedIndex ;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"我的好友%ld",indexPath.row];
+    cell.textLabel.text = self.itemNames[indexPath.row];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (selectedIndex.row == indexPath.row) {
+        cell.selected = YES;
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage autoStretchWithimageName:@"skin_cell_background"]];
+        imageView.alpha = 0.2;
+        [cell setSelectedBackgroundView:imageView];
+        cell.textLabel.textColor = [UIColor orangeColor];
+    }
     return cell;
 }
 
@@ -79,8 +91,8 @@ NSIndexPath *selectedIndex ;
     imageView.alpha = 0.2;
     [cell setSelectedBackgroundView:imageView];
     [cell setBackgroundView:nil];
-    if ([self.delegate respondsToSelector:@selector(ClassifyTableView:selectedItem:)]) {
-        [self.delegate ClassifyTableView:self selectedItem:cell.textLabel.text];
+    if ([self.delegate respondsToSelector:@selector(ClassifyTableView:selectedItemType:)]) {
+        [self.delegate ClassifyTableView:self selectedItemType:indexPath.row];
     }
     [self touchesEnded:[NSSet new] withEvent:[UIEvent new]];
 }
